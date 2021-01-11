@@ -12,7 +12,6 @@ describe("IndexPage", () => {
     cy.get("#articles").should("exist")
     cy.get("#about").should("exist")
     cy.get("#skills").should("exist")
-    cy.get("#projects").should("exist")
     cy.get("#contact").should("exist")
   })
 
