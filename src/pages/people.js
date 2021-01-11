@@ -3,7 +3,7 @@ import Layout from '../components/creativeLayout'
 import {graphql, useStaticQuery, Link } from 'gatsby'
 import Img from "gatsby-image"
 import styled from "styled-components"
-import "../components/creativeHeader.css"
+import "../components/creativeheader.css"
 const StyledImageLayout = styled.p`
 
 img{

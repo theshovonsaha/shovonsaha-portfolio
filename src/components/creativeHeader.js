@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'gatsby'
 import Nav from './creativeNav'
 import styled from "styled-components"
-import "./creativeHeader.css"
 const StyledHeader = styled.nav`
 .header {
     
