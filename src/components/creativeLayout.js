@@ -4,11 +4,10 @@ import Footer from "../components/creativeFooter"
 import styled from "styled-components"
 const StyledLayout = styled.nav`
 .container{
-    margin: 0 auto;
-    max-width: 750px;
-    padding: 1em;
-
-    display: flex;
+    margin-left: 10px;
+    margin-right: 20px;
+    max-width: 500px;
+    display: grid;
     flex-direction: column;
     min-height: 100vh;
 }

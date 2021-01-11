@@ -26,7 +26,7 @@ const StyledNav = styled.nav`
 .navItems {
     color: grey;
     font-size: .9rem;
-    margin-right: 1.3rem;
+    margin-right: .9rem;
     text-decoration: none;
     letter-spacing: 1px;
 
