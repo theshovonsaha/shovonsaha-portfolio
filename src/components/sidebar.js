@@ -73,7 +73,7 @@ const StyledNav = styled.nav`
 `
 
 const Sidebar = ({ open, setOpen }) => {
-  const { menu, button } = navLinks
+  const { menu, button1, button2 } = navLinks
   return (
     <>
       <StyledContainer open={open} aria-hidden={!open} tabIndex={open ? 1 : -1}>
@@ -90,10 +90,10 @@ const Sidebar = ({ open, setOpen }) => {
           ))}
           <Link
             className="cta-btn"
-            to={button.url}
+            to={button1.url}
             onClick={() => setOpen(!open)}
           >
-            {button.name}
+            {button1.name}
           </Link>
         </StyledNav>
       </StyledContainer>

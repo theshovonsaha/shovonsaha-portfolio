@@ -8,7 +8,7 @@ import SEO from "../components/seo"
 import Hero from "../components/sections/hero"
 import Articles from "../components/sections/articles"
 import About from "../components/sections/about"
-import Interests from "../components/sections/interests"
+import Skills from "../components/sections/skills"
 import Projects from "../components/sections/projects"
 import Contact from "../components/sections/contact"
 import { seoTitleSuffix } from "../../config"
@@ -39,8 +39,8 @@ const IndexPage = ({ data }) => {
         {/* Articles is populated via Medium RSS Feed fetch */}
         <Articles />
         <About content={data.about.edges} />
-        <Interests content={data.interests.edges} />
-        <Projects content={data.projects.edges} />
+        <Skills content={data.skills.edges} />
+        {/* <Projects content={data.projects.edges} /> */}
         <Contact content={data.contact.edges} />
       </Layout>
     </GlobalStateProvider>
@@ -103,14 +103,14 @@ export const pageQuery = graphql`
         }
       }
     }
-    interests: allMdx(
-      filter: { fileAbsolutePath: { regex: "/index/interests/" } }
+    skills: allMdx(
+      filter: { fileAbsolutePath: { regex: "/index/skills/" } }
     ) {
       edges {
         node {
           exports {
             shownItems
-            interests {
+            skills {
               name
               icon {
                 childImageSharp {

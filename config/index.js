@@ -1,14 +1,13 @@
 module.exports = {
   //-- SITE SETTINGS -----
-  author: "@konstantinmuenster",
-  siteTitle: "Gatsby Starter Portfolio Minimal",
-  siteShortTitle: "Gatsby", // Used as logo text in header, footer, and splash screen
-  siteDescription:
-    "A modern one-page portfolio with a clean yet expressive design.",
-  siteUrl: "https://gatsby-starter-portfolio-minimal.netlify.app/",
+  author: "Shovon Saha",
+  siteTitle: "The Shovon Saha",
+  siteShortTitle: "Shovon Saha", // Used as logo text in header, footer, and splash screen
+  siteDescription: "",
+  siteUrl: "https://theshovonsaha.com/",
   siteLanguage: "en_US",
   siteIcon: "content/favicon.png", // Relative to gatsby-config file
-  seoTitleSuffix: "Portfolio Minimal", // SEO title syntax will be e.g. "Imprint - {seoTitleSuffix}"
+  seoTitleSuffix: "Computer Scientist", // SEO title syntax will be e.g. "Imprint - {seoTitleSuffix}"
 
   // -- THEME SETTINGS -----
   colors: {
@@ -45,10 +44,10 @@ module.exports = {
   // You can create your own Medium feed with this rss to json converter: https://rss2json.com/
   // To access your Medium RSS feed, just replace this url with your username: https://medium.com/feed/@{yourname}
   mediumRssFeed:
-    "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40konstantinmuenster",
+    "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40theshovonsaha",
   // rssFeed: "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.theguardian.com%2Finternational%2Frss",
 
-  shownArticles: 3,
+  shownArticles: 2,
 
   //-- SOCIAL MEDIA SETTINGS -----
   // There are icons available for the following platforms:
@@ -56,26 +55,26 @@ module.exports = {
   socialMedia: [
     {
       name: "Linkedin",
-      url: "https://www.linkedin.com/in/konstantin-muenster/",
+      url: "https://www.linkedin.com/in/theshovonsaha/",
     },
     {
       name: "Medium",
-      url: "https://konstantinmuenster.medium.com/",
+      url: "https://theshovonsaha.medium.com/",
     },
     {
       name: "Github",
       url:
-        "https://github.com/konstantinmuenster/gatsby-starter-portfolio-minimal",
-    },
-    {
-      name: "Behance",
-      url: "https://www.behance.net/konstanmnster",
+        "https://github.com/theshovon",
     },
   ],
 
   //-- NAVIGATION SETTINGS -----
   navLinks: {
     menu: [
+      {
+        name: "Creativity",
+        url: "/creative",
+      },
       {
         name: "Articles",
         url: "/#articles",
@@ -85,13 +84,17 @@ module.exports = {
         url: "/#about",
       },
       {
-        name: "Features",
-        url: "/#projects",
+        name: "Skills",
+        url: "/#skills",
       },
     ],
-    button: {
+    button1: {
       name: "Contact",
       url: "/#contact",
+    },
+    button2: {
+      name: "",
+      url: "/",
     },
   },
   footerLinks: [
@@ -100,8 +103,8 @@ module.exports = {
       url: "/privacy",
     },
     {
-      name: "Imprint",
-      url: "/imprint",
+      name: "Creativity",
+      url: "/creative",
     },
   ],
 }

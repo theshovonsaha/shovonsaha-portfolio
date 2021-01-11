@@ -55,7 +55,7 @@ const StyledNav = styled.nav`
 `
 
 const Navbar = () => {
-  const { menu, button } = navLinks
+  const { menu, button1, button2 } = navLinks
   return (
     <StyledNav>
       {menu.map(({ name, url }, key) => {
@@ -65,8 +65,8 @@ const Navbar = () => {
           </Link>
         )
       })}
-      <Link className="cta-btn" to={button.url}>
-        {button.name}
+      <Link className="cta-btn" to={button1.url}>
+        {button1.name}
       </Link>
     </StyledNav>
   )
