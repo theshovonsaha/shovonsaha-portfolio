@@ -63,8 +63,7 @@ module.exports = {
     },
     {
       name: "Github",
-      url:
-        "https://github.com/theshovon",
+      url: "https://github.com/theshovon",
     },
   ],
 
@@ -72,7 +71,7 @@ module.exports = {
   navLinks: {
     menu: [
       {
-        name: "Creativity",
+        name: "Creative",
         url: "/creative",
       },
       {
@@ -103,7 +102,7 @@ module.exports = {
       url: "/privacy",
     },
     {
-      name: "Creativity",
+      name: "Creative",
       url: "/creative",
     },
   ],

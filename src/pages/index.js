@@ -103,9 +103,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    skills: allMdx(
-      filter: { fileAbsolutePath: { regex: "/index/skills/" } }
-    ) {
+    skills: allMdx(filter: { fileAbsolutePath: { regex: "/index/skills/" } }) {
       edges {
         node {
           exports {

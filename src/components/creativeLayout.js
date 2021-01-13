@@ -1,35 +1,34 @@
-import React from 'react'
+import React from "react"
 import Header from "../components/creativeHeader"
 import Footer from "../components/creativeFooter"
 import styled from "styled-components"
 const StyledLayout = styled.nav`
-.container{
+  .container {
     margin-left: 10px;
     margin-right: 20px;
     max-width: 500px;
     display: grid;
     flex-direction: column;
     min-height: 100vh;
-}
+  }
 
-.content {
+  .content {
     flex-grow: 1;
-}
+  }
 `
 
-
-const creativeLayout = (props) => {
-    return (
-        <StyledLayout>
-        <div className="container">
-            <div className="content">
-                <Header />
-                {props.children}
-            </div>
-            <Footer />
+const creativeLayout = props => {
+  return (
+    <StyledLayout>
+      <div className="container">
+        <div className="content">
+          <Header />
+          {props.children}
         </div>
-        </StyledLayout>
-    )
+        <Footer />
+      </div>
+    </StyledLayout>
+  )
 }
 
-export default creativeLayout 
+export default creativeLayout
