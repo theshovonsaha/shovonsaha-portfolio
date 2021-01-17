@@ -4,18 +4,20 @@ import { graphql, useStaticQuery, Link } from "gatsby"
 import Img from "gatsby-image"
 import styled from "styled-components"
 const StyledCreative = styled.p`
+  .grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    grid-gap: 1rem;
+  }
   img {
     border-radius: 2%;
     height: 100px;
     width: 50px;
   }
   div {
-    padding: 1vh;
-  }
-  .center {
-    display: grid;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    align-items: center;
   }
 
   .street {
@@ -191,35 +193,43 @@ const creative = () => {
   return (
     <StyledCreative>
       <Layout>
-        <div className="center">
-          <Link to="/people">
-            <Img
-              className="people"
-              fixed={data.people.childImageSharp.fixed}
-              alt=""
-            />
-          </Link>
-          <Link to="/street">
-            <Img
-              className="street"
-              fixed={data.street.childImageSharp.fixed}
-              alt=""
-            />
-          </Link>
-          <Link to="/nature">
-            <Img
-              className="nature"
-              fixed={data.nature.childImageSharp.fixed}
-              alt=""
-            />
-          </Link>
-          <Link to="/motor">
-            <Img
-              className="cars"
-              fixed={data.cars.childImageSharp.fixed}
-              alt=""
-            />
-          </Link>
+        <div className="grid">
+          <div>
+            <Link to="/people">
+              <Img
+                className="people"
+                fixed={data.people.childImageSharp.fixed}
+                alt=""
+              />
+            </Link>
+          </div>
+          <div>
+            <Link to="/street">
+              <Img
+                className="street"
+                fixed={data.street.childImageSharp.fixed}
+                alt=""
+              />
+            </Link>
+          </div>
+          <div>
+            <Link to="/nature">
+              <Img
+                className="nature"
+                fixed={data.nature.childImageSharp.fixed}
+                alt=""
+              />
+            </Link>
+          </div>
+          <div>
+            <Link to="/motor">
+              <Img
+                className="cars"
+                fixed={data.cars.childImageSharp.fixed}
+                alt=""
+              />
+            </Link>
+          </div>
         </div>
       </Layout>
     </StyledCreative>

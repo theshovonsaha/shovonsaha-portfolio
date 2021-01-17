@@ -5,6 +5,13 @@ import Img from "gatsby-image"
 import styled from "styled-components"
 import "../components/creativeheader.css"
 const StyledImageLayout = styled.p`
+  .grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    grid-gap: 1rem;
+  }
   img {
     border-radius: 2%;
   }
@@ -143,7 +150,7 @@ const people = () => {
   `)
   return (
     <Layout>
-      <StyledImageLayout>
+      <StyledImageLayout className="grid">
         <h1>People</h1>
         <div>
           <Img fluid={data.peo.childImageSharp.fluid} alt="" />
