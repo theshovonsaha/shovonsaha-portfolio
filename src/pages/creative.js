@@ -13,8 +13,6 @@ const StyledCreative = styled.p`
   }
   img {
     border-radius: 2%;
-    height: 100px;
-    width: 50px;
   }
   div {
     align-items: center;

@@ -6,8 +6,8 @@ const StyledLayout = styled.nav`
   .container {
     margin-left: 10px;
     margin-right: 20px;
-    max-width: 500px;
-    display: grid;
+    display: flex;
+    justify-content: center;
     flex-direction: column;
     min-height: 100vh;
   }
