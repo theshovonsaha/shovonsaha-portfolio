@@ -46,14 +46,6 @@ const videography = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
-          <iframe
-            width="680"
-            height="420"
-            src="https://www.youtube.com/embed/HD-94oldIQY"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
         </div>
       </Styledc>
     </Layout>
