@@ -30,7 +30,7 @@ const videography = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
-      <iframe width="1254" height="705" src="https://www.youtube.com/embed/eFPLmUfnG3g" title="Toronto Tattoo B Roll | SONY A6400" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <iframe width="680" height="420" src="https://www.youtube.com/embed/eFPLmUfnG3g" title="Toronto Tattoo B Roll | SONY A6400" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           <iframe
             width="680"
             height="420"
