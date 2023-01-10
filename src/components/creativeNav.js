@@ -118,7 +118,9 @@ const creativeNav = () => {
             <li>
               <a
                 className="navItems"
-                href="https://www.instagram.com/theshovonsaha"
+                href="https://www.instagram.com/theartist.ca"
+                target="_blank"
+                rel="noreferrer"
               >
                 Instagram
               </a>
