@@ -133,11 +133,7 @@ const creative = () => {
       people: file(relativePath: { eq: "images/People/MariyaBest.JPG" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 370) {
             ...GatsbyImageSharpFixed
@@ -147,11 +143,7 @@ const creative = () => {
       street: file(relativePath: { eq: "images/Abstract/blueClockVNC.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 370) {
             ...GatsbyImageSharpFixed
@@ -161,11 +153,7 @@ const creative = () => {
       nature: file(relativePath: { eq: "images/Nature/SnowMountains.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 370) {
             ...GatsbyImageSharpFixed
@@ -175,11 +163,7 @@ const creative = () => {
       cars: file(relativePath: { eq: "images/Car/Barbataus.JPG" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 370) {
             ...GatsbyImageSharpFixed
