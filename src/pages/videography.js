@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../components/creativeLayout"
 import styled from "styled-components"
-const Styledc = styled.p`
+const Styledc = styled.div`
   div {
     display: grid;
     justify-content: space-around;

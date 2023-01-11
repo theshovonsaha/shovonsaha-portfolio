@@ -20,6 +20,10 @@ const StyledImageLayout = styled.p`
     font-style: bold;
     font-size: 30px;
   }
+  @font-face {
+    font-family: "Shovon";
+    src: url("../../content/fonts/name.ttf");
+  }
 `
 const nature = () => {
   const data = useStaticQuery(graphql`

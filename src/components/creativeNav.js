@@ -26,9 +26,17 @@ const StyledNav = styled.nav`
   .navItems {
     color: grey;
     font-size: 0.8rem;
-    margin-right: 0.9rem;
+    // margin-right: 0.9rem;
     text-decoration: none;
     letter-spacing: 1px;
+  }
+   .navItemsRight {
+    color: grey;
+    font-size: 0.8rem;
+    // margin-right: 0.9rem;
+    text-decoration: none;
+    letter-spacing: 1px;
+    margin-left: 50%;
   }
   .navItems:hover {
     color: black;
@@ -154,7 +162,7 @@ const creativeNav = () => {
             </li>
             <li>
               <Link
-                className="navItems"
+                className="navItemsRight"
                 activeClassName="activeNavItem"
                 to="/myself"
               >
@@ -163,7 +171,7 @@ const creativeNav = () => {
             </li>
             <li>
               <Link
-                className="navItems"
+                className="navItemsRight"
                 activeClassName="activeNavItem"
                 to="/creativecontact"
               >
@@ -172,7 +180,7 @@ const creativeNav = () => {
             </li>
             <li>
               <a
-                className="navItems"
+                className="navItemsRight"
                 href="https://www.instagram.com/theartist.ca"
                 target="_blank"
                 rel="noreferrer"

@@ -8,7 +8,7 @@ const StyledImageLayout = styled.p`
     border-radius: 2%;
   }
   div {
-    padding: 40px;
+    padding: 8vh;
   }
   h1 {
     display: grid;
@@ -20,6 +20,10 @@ const StyledImageLayout = styled.p`
     font-style: bold;
     font-size: 30px;
   }
+  @font-face {
+    font-family: "Shovon";
+    src: url("../../content/fonts/name.ttf");
+  }
 `
 const motor = () => {
   const data = useStaticQuery(graphql`
@@ -27,11 +31,7 @@ const motor = () => {
       m: file(relativePath: { eq: "images/Car/redwheel.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 400, height: 600) {
             ...GatsbyImageSharpFixed
@@ -41,11 +41,7 @@ const motor = () => {
       m1: file(relativePath: { eq: "images/Car/LexusExhb.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 400, height: 600) {
             ...GatsbyImageSharpFixed
@@ -55,11 +51,7 @@ const motor = () => {
       m2: file(relativePath: { eq: "images/Car/carFinal.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 400, height: 600) {
             ...GatsbyImageSharpFixed
@@ -69,11 +61,7 @@ const motor = () => {
       m3: file(relativePath: { eq: "images/Car/LexusHalloween.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 400, height: 600) {
             ...GatsbyImageSharpFixed
@@ -83,11 +71,7 @@ const motor = () => {
       m4: file(relativePath: { eq: "images/Car/NathanPhilipsGarage.JPG" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 400, height: 600) {
             ...GatsbyImageSharpFixed

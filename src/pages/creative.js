@@ -156,7 +156,11 @@ const creative = () => {
       nature: file(relativePath: { eq: "images/Nature/SnowMountains.jpg" }) {
         childImageSharp {
           fluid {
-            ...GatsbyImageSharpFluid
+            base64
+            aspectRatio
+            src
+            srcSet
+            sizes
           }
           fixed(width: 370, height: 370) {
             ...GatsbyImageSharpFixed
@@ -166,7 +170,11 @@ const creative = () => {
       cars: file(relativePath: { eq: "images/Car/Barbataus.JPG" }) {
         childImageSharp {
           fluid {
-            ...GatsbyImageSharpFluid
+            base64
+            aspectRatio
+            src
+            srcSet
+            sizes
           }
           fixed(width: 370, height: 370) {
             ...GatsbyImageSharpFixed
@@ -176,50 +184,48 @@ const creative = () => {
     }
   `)
   return (
-    <div>
-      <StyledCreative>
-        <Layout>
-          <div className="grid">
-            <div>
-              <Link to="/people">
-                <Img
-                  className="people"
-                  fixed={data.people.childImageSharp.fixed}
-                  alt=""
-                />
-              </Link>
-            </div>
-            <div>
-              <Link to="/street">
-                <Img
-                  className="street"
-                  fixed={data.street.childImageSharp.fixed}
-                  alt=""
-                />
-              </Link>
-            </div>
-            <div>
-              <Link to="/nature">
-                <Img
-                  className="nature"
-                  fixed={data.nature.childImageSharp.fixed}
-                  alt=""
-                />
-              </Link>
-            </div>
-            <div>
-              <Link to="/motor">
-                <Img
-                  className="cars"
-                  fixed={data.cars.childImageSharp.fixed}
-                  alt=""
-                />
-              </Link>
-            </div>
+    <StyledCreative>
+      <Layout>
+        <div className="grid">
+          <div>
+            <Link to="/people">
+              <Img
+                className="people"
+                fixed={data.people.childImageSharp.fixed}
+                alt=""
+              />
+            </Link>
           </div>
-        </Layout>
-      </StyledCreative>
-    </div>
+          <div>
+            <Link to="/street">
+              <Img
+                className="street"
+                fixed={data.street.childImageSharp.fixed}
+                alt=""
+              />
+            </Link>
+          </div>
+          <div>
+            <Link to="/nature">
+              <Img
+                className="nature"
+                fixed={data.nature.childImageSharp.fixed}
+                alt=""
+              />
+            </Link>
+          </div>
+          <div>
+            <Link to="/motor">
+              <Img
+                className="cars"
+                fixed={data.cars.childImageSharp.fixed}
+                alt=""
+              />
+            </Link>
+          </div>
+        </div>
+      </Layout>
+    </StyledCreative>
   )
 }
 

@@ -3,8 +3,7 @@ import Layout from "../components/creativeLayout"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import Img from "gatsby-image"
 import styled from "styled-components"
-import "../components/creativeheader.css"
-const StyledImageLayout = styled.p`
+const StyledImageLayout = styled.div`
   .grid {
     display: flex;
     justify-content: center;
@@ -27,6 +26,10 @@ const StyledImageLayout = styled.p`
     letter-spacing: 3px;
     font-style: bold;
     font-size: 30px;
+  }
+  @font-face {
+    font-family: "Shovon";
+    src: url("../../content/fonts/name.ttf");
   }
 `
 const people = () => {
