@@ -17,14 +17,15 @@ const StyledNav = styled.nav`
     margin: 0;
     font-family: "Nanum Gothic", sans-serif;
     justify-content: space-around;
-    align-items: center;
+    align-items: left;
     flex-direction: column;
     flex-flow: row;
+    padding-bottom: 9vh;
   }
 
   .navItems {
     color: grey;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin-right: 0.9rem;
     text-decoration: none;
     letter-spacing: 1px;
@@ -35,6 +36,61 @@ const StyledNav = styled.nav`
   .activeNavItem {
     color: black;
   }
+  ul {
+    margin: 150px auto 0;
+    padding: 0;
+    list-style: none;
+    display: table;
+    width: 600px;
+    text-align: center;
+  }
+  li {
+    display: table-cell;
+    position: relative;
+    padding: 15px 0;
+    float: right;
+  }
+  /* Underline styles */
+  a {
+    float: right;
+    display: block;
+    position: relative;
+    color: #000000;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    display: inline-block;
+    padding: 8px 20px;
+  }
+
+  /* Fade in */
+  a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.2em;
+    background-color: black;
+    opacity: 0;
+    transition: opacity 600ms, transform 600ms;
+    opacity 1;
+    transform: scale(0);
+    transform-origin: center;
+  }
+
+  a:hover::after,
+  a:focus::after {
+    opacity: 1;
+    transform: translate3d(0, 0.9em, 1);
+    transform: scale(0.5);
+  }
+  @media screen and (max-height: 300px) {
+    ul {
+      margin-top: 40px;
+    }
+  }
+
   .tooltip {
   }
 
@@ -51,7 +107,6 @@ const StyledNav = styled.nav`
     position: absolute;
     z-index: 1;
   }
-
   .tooltip:hover .tooltiptext {
     visibility: visible;
   }

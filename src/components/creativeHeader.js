@@ -10,6 +10,7 @@ const StyledHeader = styled.nav`
     letter-spacing: 2px;
     font-style: bold;
     font-size: 40px;
+    padding: 1vh;
   }
   .name {
     text-decoration: none;
