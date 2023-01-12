@@ -3,14 +3,7 @@ import Layout from "../components/creativeLayout"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import Img from "gatsby-image"
 import styled from "styled-components"
-const StyledImageLayout = styled.div`
-  .grid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    grid-gap: 1rem;
-  }
+const StyledImageLayout = styled.p`
   img {
     border-radius: 2%;
   }
@@ -22,17 +15,12 @@ const StyledImageLayout = styled.div`
     justify-content: space-around;
     flex-wrap: wrap;
     flex-flow: 1;
-    font-family: Shovon;
     letter-spacing: 3px;
     font-style: bold;
-    font-size: 30px;
-  }
-  @font-face {
-    font-family: "Shovon";
-    src: url("../../content/fonts/name.ttf");
+    font-size: 20px;
   }
 `
-const people = () => {
+const people = props => {
   const data = useStaticQuery(graphql`
     query {
       peo: file(relativePath: { eq: "images/People/GirlsMountain.jpg" }) {

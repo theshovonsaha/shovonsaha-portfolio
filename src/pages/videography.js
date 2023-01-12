@@ -11,6 +11,7 @@ const Styledc = styled.div`
     width: 420px;
     height: 280px;
     padding: 1vh;
+    border-radius: 5%;
   }
   @media screen and(max-width: 768px) {
     width: 420px;

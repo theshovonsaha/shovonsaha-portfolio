@@ -6,10 +6,9 @@ import styled from "styled-components"
 const StyledCreative = styled.p`
   .grid {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
-    grid-gap: 1rem;
+    gap: 1rem;
+    justify-content: center;
   }
   img {
     border-radius: 2%;
@@ -156,11 +155,7 @@ const creative = () => {
       nature: file(relativePath: { eq: "images/Nature/SnowMountains.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 370) {
             ...GatsbyImageSharpFixed
@@ -170,11 +165,7 @@ const creative = () => {
       cars: file(relativePath: { eq: "images/Car/Barbataus.JPG" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 370) {
             ...GatsbyImageSharpFixed

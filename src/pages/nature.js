@@ -15,14 +15,9 @@ const StyledImageLayout = styled.p`
     justify-content: space-around;
     flex-wrap: wrap;
     flex-flow: 1;
-    font-family: Shovon;
     letter-spacing: 3px;
     font-style: bold;
-    font-size: 30px;
-  }
-  @font-face {
-    font-family: "Shovon";
-    src: url("../../content/fonts/name.ttf");
+    font-size: 20px;
   }
 `
 const nature = () => {
@@ -31,11 +26,7 @@ const nature = () => {
       nat: file(relativePath: { eq: "images/Nature/SnowMountains.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 400, height: 600) {
             ...GatsbyImageSharpFixed
@@ -45,11 +36,7 @@ const nature = () => {
       nat1: file(relativePath: { eq: "images/Nature/sunsetBushes.JPG" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 400, height: 600) {
             ...GatsbyImageSharpFixed
@@ -59,11 +46,7 @@ const nature = () => {
       nat2: file(relativePath: { eq: "images/Nature/YorkStormySunset.JPG" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 400, height: 600) {
             ...GatsbyImageSharpFixed
@@ -73,11 +56,7 @@ const nature = () => {
       nat3: file(relativePath: { eq: "images/Nature/BurrardViewBeach.JPG" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 400, height: 600) {
             ...GatsbyImageSharpFixed
@@ -87,11 +66,7 @@ const nature = () => {
       nat4: file(relativePath: { eq: "images/Nature/beachLogsVancouver.JPG" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 400, height: 600) {
             ...GatsbyImageSharpFixed

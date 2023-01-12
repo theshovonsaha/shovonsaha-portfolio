@@ -9,6 +9,8 @@ const StyledLayout = styled.nav`
     display: flex;
     justify-content: center;
     flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
     min-height: 100vh;
   }
 

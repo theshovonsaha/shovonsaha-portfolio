@@ -15,14 +15,9 @@ const StyledImageLayout = styled.p`
     justify-content: space-around;
     flex-wrap: wrap;
     flex-flow: 1;
-    font-family: Shovon;
     letter-spacing: 2px;
     font-style: bold;
     font-size: 20px;
-  }
-  @font-face {
-    font-family: "Shovon";
-    src: url("../../content/fonts/name.ttf");
   }
 `
 const street = () => {
@@ -31,11 +26,7 @@ const street = () => {
       abs: file(relativePath: { eq: "images/Abstract/KingBay.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 580) {
             ...GatsbyImageSharpFixed
@@ -45,11 +36,7 @@ const street = () => {
       abs1: file(relativePath: { eq: "images/Abstract/blueClockVNC.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 580) {
             ...GatsbyImageSharpFixed
@@ -59,11 +46,7 @@ const street = () => {
       abs2: file(relativePath: { eq: "images/Abstract/granville.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 580) {
             ...GatsbyImageSharpFixed
@@ -75,11 +58,7 @@ const street = () => {
       ) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 580) {
             ...GatsbyImageSharpFixed
@@ -89,11 +68,7 @@ const street = () => {
       abs4: file(relativePath: { eq: "images/Abstract/goderhamBuilding.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 580) {
             ...GatsbyImageSharpFixed
@@ -103,11 +78,7 @@ const street = () => {
       abs5: file(relativePath: { eq: "images/Abstract/muse.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 580) {
             ...GatsbyImageSharpFixed
@@ -117,11 +88,7 @@ const street = () => {
       abs6: file(relativePath: { eq: "images/Abstract/benHotel.JPG" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 580) {
             ...GatsbyImageSharpFixed
@@ -131,11 +98,7 @@ const street = () => {
       abs7: file(relativePath: { eq: "images/Abstract/VncStreet.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 580) {
             ...GatsbyImageSharpFixed
@@ -145,11 +108,7 @@ const street = () => {
       abs8: file(relativePath: { eq: "images/Abstract/VncStreetClock.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 580) {
             ...GatsbyImageSharpFixed
@@ -159,11 +118,7 @@ const street = () => {
       abs9: file(relativePath: { eq: "images/Abstract/cnReflection.jpg" }) {
         childImageSharp {
           fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
+            ...GatsbyImageSharpFluid
           }
           fixed(width: 370, height: 580) {
             ...GatsbyImageSharpFixed

@@ -8,21 +8,15 @@ const StyledImageLayout = styled.p`
     border-radius: 2%;
   }
   div {
-    padding: 8vh;
+    padding: 2%;
   }
   h1 {
     display: grid;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
-    flex-flow: 1;
-    font-family: Shovon;
     letter-spacing: 3px;
     font-style: bold;
-    font-size: 30px;
-  }
-  @font-face {
-    font-family: "Shovon";
-    src: url("../../content/fonts/name.ttf");
+    font-size: 20px;
   }
 `
 const motor = () => {
