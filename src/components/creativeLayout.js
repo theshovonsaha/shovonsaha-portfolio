@@ -2,7 +2,7 @@ import React from "react"
 import Header from "../components/creativeHeader"
 import Footer from "../components/creativeFooter"
 import styled from "styled-components"
-const StyledLayout = styled.nav`
+const StyledLayout = styled.div`
   .container {
     margin-left: 10px;
     margin-right: 20px;

@@ -1,63 +1,7 @@
-import React from "react"
-import { Link, graphql, useStaticQuery } from "gatsby"
+import React, { useState } from "react"
+import { Link } from "gatsby"
 import styled from "styled-components"
-const StyledNav = styled.nav`
-  .header {
-    padding: 1rem 0 3rem;
-    display: flex;
-    justify-content: space-around;
-  }
-  .name {
-    text-decoration: none;
-    color: black;
-  }
-  .navList {
-    display: flex;
-    list-style-type: none;
-    margin: 0;
-    font-family: "Nanum Gothic", sans-serif;
-    justify-content: space-around;
-    align-items: left;
-    flex-direction: column;
-    flex-flow: row;
-    padding-bottom: 9vh;
-  }
-
-  .navItems {
-    color: grey;
-    font-size: 0.8rem;
-    // margin-right: 0.9rem;
-    text-decoration: none;
-    letter-spacing: 1px;
-  }
-   .navItemsRight {
-    color: grey;
-    font-size: 0.8rem;
-    // margin-right: 0.9rem;
-    text-decoration: none;
-    letter-spacing: 1px;
-    margin-left: 50%;
-  }
-  .navItems:hover {
-    color: black;
-  }
-  .activeNavItem {
-    color: black;
-  }
-  ul {
-    margin: 150px auto 0;
-    padding: 0;
-    list-style: none;
-    display: table;
-    width: 600px;
-    text-align: center;
-  }
-  li {
-    display: table-cell;
-    position: relative;
-    padding: 15px 0;
-    float: right;
-  }
+const StyledNav = styled.div`
   /* Underline styles */
   a {
     float: right;
@@ -79,7 +23,7 @@ const StyledNav = styled.nav`
     left: 0;
     width: 100%;
     height: 0.2em;
-    background-color: black;
+    background-color: grey;
     opacity: 0;
     transition: opacity 600ms, transform 600ms;
     opacity 1;
@@ -93,108 +37,188 @@ const StyledNav = styled.nav`
     transform: translate3d(0, 0.9em, 1);
     transform: scale(0.5);
   }
-  @media screen and (max-height: 300px) {
-    ul {
-      margin-top: 40px;
+  .nav-bar {
+  background-color: white;
+  color: black;
+  padding: 10px;
+  padding-bottom: 5%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-item {
+  padding: 0 10px;
+  color: grey;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+.nav-item:hover {
+  color: black;
+}
+.nav-item a {
+  color: grey;
+  text-decoration: none;
+  padding: 10px;
+}
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+  /* Show hamburger on mobile */
+  @media (max-width: 767px) {
+    .nav-bar {
+      display: none;
+    }
+  }
+    .hamburger {
+      display: block;
+      cursor: pointer;
+      position: absolute;
+      right: 20px;
+      top: 20px;
     }
   }
 
-  .tooltip {
+  /* Hamburger styles */
+  @media (min-width: 768px){
+    .hamburger {
+    display: none;
+  }
+  }
+  
+
+  .line {
+    width: 25px;
+    height: 2px;
+    background-color: grey;
+    margin: 5px 0;
+    transition: all 0.3s ease;
   }
 
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 1px 0;
+  .open .line:nth-child(1) {
+    transform: rotate(45deg);
+    transform-origin: left top;
+  }
 
-    /* Position the tooltip */
-    position: absolute;
+  .open .line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .open .line:nth-child(3) {
+    transform: rotate(-45deg);
+    transform-origin: left bottom;
+  }
+
+  /* Nav overlay styles */
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     z-index: 1;
   }
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
+
+  .nav-overlay a {
+    color: black;
+    text-decoration: none;
+    margin-bottom: 100px;
+    font-size: 1.2rem;
   }
+}
 `
 
-// const  creativeNavbar = () => {
-//     const { menu } = navLinks
-//     return (
-//       <StyledNav>
-//         {menu.map(({ name, url }, key) => {
-//           return (
-//             <Link className="nav-link, nav-items" activeClassName="active-nav-link" key={key} to={url}>
-//               {name}
-//             </Link>
-//           )
-//         })}
-//       </StyledNav>
-//     )
-//   }
-// export default creativeNavbar
-
 const creativeNav = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggleNav = () => {
+    setIsOpen(!isOpen)
+  }
   return (
-    <StyledNav>
-      <header className="header">
-        <nav>
-          <ul className="navList">
-            <li>
+    <>
+      <StyledNav>
+        <div className="nav-container">
+          <nav className="nav-bar">
+            <div className="nav-item align-left">
               <Link
-                className="navItems"
+                className="nav-item"
                 activeClassName="activeNavItem"
                 to="/creative"
               >
                 Photography
               </Link>
-            </li>
-            <li>
               <Link
-                className="navItems"
+                className="nav-item"
                 activeClassName="activeNavItem"
                 to="/videography"
               >
                 Videography
               </Link>
-            </li>
-            <li>
+            </div>
+            <div className="nav-item align-right">
               <Link
-                className="navItemsRight"
-                activeClassName="activeNavItem"
-                to="/myself"
-              >
-                Myself
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="navItemsRight"
-                activeClassName="activeNavItem"
-                to="/creativecontact"
-              >
-                Contact
-              </Link>
-            </li>
-            <li>
-              <a
-                className="navItemsRight"
+                className="nav-item"
                 href="https://www.instagram.com/theartist.ca"
                 target="_blank"
                 rel="noreferrer"
               >
                 Instagram
-              </a>
-            </li>{" "}
-            <div className="tooltip">
-              𓅓 <span className="tooltiptext">Hoot!</span>
+              </Link>
+              <Link
+                className="nav-item"
+                activeClassName="activeNavItem"
+                to="/myself"
+              >
+                Myself
+              </Link>
+              <Link
+                className="nav-item"
+                activeClassName="activeNavItem"
+                to="/creativecontact"
+              >
+                Contact
+              </Link>
             </div>
-          </ul>
-        </nav>
-      </header>
-    </StyledNav>
+          </nav>
+          <div className="hamburger" onClick={toggleNav}>
+            <div className={isOpen ? "line open" : "line"}></div>
+            <div className={isOpen ? "line open" : "line"}></div>
+            <div className={isOpen ? "line open" : "line"}></div>
+          </div>
+          {isOpen && (
+            <div className="nav-overlay">
+              <div className="hamburger" onClick={toggleNav}>
+                <div className={isOpen ? "line open" : "line"}></div>
+                <div className={isOpen ? "line open" : "line"}></div>
+                <div className={isOpen ? "line open" : "line"}></div>
+              </div>
+              <nav>
+                <Link to="/creative">Photography</Link>
+                <Link to="/videography">Videography</Link>
+                <Link
+                  href="https://www.instagram.com/theartist.ca"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Instagram
+                </Link>
+                <Link to="/myself">Myself</Link>
+                <Link to="/creativecontact">Contact</Link>
+              </nav>
+            </div>
+          )}
+        </div>
+      </StyledNav>
+    </>
   )
 }
 export default creativeNav

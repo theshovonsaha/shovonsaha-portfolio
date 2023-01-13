@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 import Nav from "./creativeNav"
 import styled from "styled-components"
-const StyledHeader = styled.nav`
+const StyledHeader = styled.div`
   .name {
     display: flex;
     justify-content: center;
@@ -16,11 +16,9 @@ const StyledHeader = styled.nav`
 const creativeHeader = () => {
   return (
     <StyledHeader>
-      <h1>
-        <Link className="name" to="/creative">
-          Shovon Saha
-        </Link>
-      </h1>
+      <Link className="name" to="/creative">
+        Shovon Saha
+      </Link>
       <Nav />
     </StyledHeader>
   )

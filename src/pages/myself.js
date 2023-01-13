@@ -4,7 +4,7 @@ import { graphql, useStaticQuery, Link } from "gatsby"
 import Img from "gatsby-image"
 import styled from "styled-components"
 
-const Styledc = styled.p`
+const Styledc = styled.div`
 img{
     border-radius: 3px:
 }
@@ -39,12 +39,10 @@ const myself = () => {
     <Layout>
       <Styledc>
         <div>
-          {" "}
           Hi I am passionate about photography and videography! My goal is to
           provide visual pleasures to the world. I hope you enjoy my work. I am
           still exploring my style. Looking forward to work with you. to contact
           me click <Link to="/creativecontact"> 𓅓 </Link>
-          {/* <Img fixed={data.me.childImageSharp.fixed} alt="" /> */}
         </div>
       </Styledc>
     </Layout>

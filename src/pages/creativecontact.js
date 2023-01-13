@@ -1,10 +1,8 @@
 import React from "react"
 import Layout from "../components/creativeLayout"
 import styled from "styled-components"
-import Img from "gatsby-image"
-import { graphql, useStaticQuery } from "gatsby"
 
-const Styledc = styled.nav`
+const Styledc = styled.div`
   .container {
     display: grid;
   }
@@ -25,31 +23,14 @@ const Styledc = styled.nav`
   }
 `
 const creativecontact = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      insta: file(relativePath: { eq: "images/icons/insta.png" }) {
-        childImageSharp {
-          fluid {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
-          }
-        }
-      }
-    }
-  `)
   return (
     <Layout>
       <Styledc>
-        <p className="container">
-          {" "}
+        <div className="container">
           <a href={`mailto:"theshovonsaha@gmail.com"`}>
             Email: theshovonsaha@gmail.com
           </a>
-        </p>
-        {/* <Img fluid={data.insta.childImageSharp.fluid} alt="" /> */}
+        </div>
       </Styledc>
     </Layout>
   )
