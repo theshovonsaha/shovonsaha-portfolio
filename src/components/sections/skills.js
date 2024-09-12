@@ -162,7 +162,13 @@ const Skills = ({ content }) => {
               initial={{ opacity: 0, scaleY: 0 }}
               animate={iControls}
             >
-              <Img className="icon" fixed={icon.childImageSharp.fixed} /> {name}
+              <img
+                src={icon}
+                alt={name}
+                className="icon"
+                style={{ width: "20px", height: "20px", marginRight: "0.5rem" }}
+              />
+              <span className="name">{name}</span>
             </motion.div>
           ))}
           {shownInterests < skills.length && (

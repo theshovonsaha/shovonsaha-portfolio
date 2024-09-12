@@ -110,13 +110,7 @@ export const pageQuery = graphql`
             shownItems
             skills {
               name
-              icon {
-                childImageSharp {
-                  fixed(width: 20, height: 20, quality: 90) {
-                    ...GatsbyImageSharpFixed
-                  }
-                }
-              }
+              icon
             }
           }
           frontmatter {
