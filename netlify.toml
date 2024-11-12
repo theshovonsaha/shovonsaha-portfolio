@@ -5,6 +5,7 @@
 [build.environment]
   CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
   TERM = "xterm"
+  NODE_VERSION = "14"
 
 [[plugins]]
   package = "netlify-plugin-gatsby-cache"

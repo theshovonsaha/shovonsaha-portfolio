@@ -94,5 +94,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/theshovon/shovonsaha-portfolio"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
