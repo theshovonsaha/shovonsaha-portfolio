@@ -1,101 +1,36 @@
 import React from "react"
 import Layout from "../components/creativeLayout"
-import { graphql, useStaticQuery, Link } from "gatsby"
-import Img from "gatsby-image"
-import styled from "styled-components"
-const StyledImageLayout = styled.p`
-  img {
-    border-radius: 2%;
-  }
-  div {
-    padding: 2%;
-  }
-  h1 {
-    display: grid;
-    justify-content: center;
-    flex-wrap: wrap;
-    letter-spacing: 3px;
-    font-style: bold;
-    font-size: 20px;
-  }
-`
-const motor = () => {
+import { graphql, useStaticQuery } from "gatsby"
+import SEO from "../components/seo"
+import Gallery from "../components/Gallery"
+
+const Motor = () => {
   const data = useStaticQuery(graphql`
     query {
-      m: file(relativePath: { eq: "images/Car/redwheel.jpg" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-          fixed(width: 400, height: 600) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      m1: file(relativePath: { eq: "images/Car/LexusExhb.jpg" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-          fixed(width: 400, height: 600) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      m2: file(relativePath: { eq: "images/Car/carFinal.jpg" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-          fixed(width: 400, height: 600) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      m3: file(relativePath: { eq: "images/Car/LexusHalloween.jpg" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-          fixed(width: 400, height: 600) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      m4: file(relativePath: { eq: "images/Car/NathanPhilipsGarage.JPG" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-          fixed(width: 400, height: 600) {
-            ...GatsbyImageSharpFixed
+      allFile(filter: { relativeDirectory: { eq: "images/Car" } }) {
+        edges {
+          node {
+            childImageSharp {
+              fluid(maxWidth: 500) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+            name
           }
         }
       }
     }
   `)
+
   return (
     <Layout>
-      <StyledImageLayout>
-        <h1>Motor</h1>
-        <div>
-          <Img fluid={data.m.childImageSharp.fluid} alt="" />
-        </div>
-        <div>
-          <Img fluid={data.m1.childImageSharp.fluid} alt="" />
-        </div>
-        <div>
-          <Img fluid={data.m2.childImageSharp.fluid} alt="" />
-        </div>
-        <div>
-          <Img fluid={data.m3.childImageSharp.fluid} alt="" />
-        </div>
-        <div>
-          <Img fluid={data.m4.childImageSharp.fluid} alt="" />
-        </div>
-      </StyledImageLayout>
+      <SEO
+        title="Motor Photography - Toronto Photographer | Shovon Saha"
+        description="Explore Motor Photography by Shovon Saha, showcasing the beauty of Toronto's automotive scene."
+      />
+      <Gallery title="Motor" data={data.allFile} />
     </Layout>
   )
 }
 
-export default motor
+export default Motor

@@ -3,132 +3,78 @@ import Layout from "../components/creativeLayout"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import Img from "gatsby-image"
 import styled from "styled-components"
-const StyledCreative = styled.p`
+import { motion } from "framer-motion"
+import SEO from "../components/seo"
+
+const StyledCreative = styled.section`
   .grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-  }
-  img {
-    border-radius: 2%;
-  }
-  div {
-    padding: 0.1vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+    padding: 2rem 0;
   }
 
-  .street {
-    opacity: 0.9;
-    transition: opacity 0.5s ease;
-    padding: 1vh;
-  }
-  .street:hover {
-    opacity: 1;
-  }
-  .street::after {
-    content: "Abstract";
-    color: white;
-    font-size: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .image-wrapper {
+    position: relative;
     width: 100%;
-    height: 100%;
+    padding-top: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .overlay {
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 1;
-    border-radius: 1%;
-    transition: opacity 0.5s ease;
-  }
-  .street:hover::after {
-    opacity: 0;
-  }
-  .people {
-    opacity: 0.9;
-    transition: opacity 0.5s ease;
-    padding: 1vh;
-  }
-  .people:hover {
-    opacity: 1;
-  }
-  .people::after {
-    content: "People";
-    color: white;
-    font-size: 50px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
     opacity: 1;
-    border-radius: 1%;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.3s ease;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
-  .people:hover::after {
+  .image-wrapper:hover .overlay {
     opacity: 0;
-  }
-  .cars {
-    opacity: 0.9;
-    transition: opacity 0.5s ease;
-    padding: 1vh;
-  }
-  .cars:hover {
-    opacity: 1;
-  }
-  .cars::after {
-    content: "Motor";
-    color: white;
-    font-size: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 1;
-    border-radius: 1%;
-    transition: opacity 0.5s ease;
   }
 
-  .cars:hover::after {
-    opacity: 0;
-  }
-  .nature {
-    opacity: 0.9;
-    transition: opacity 0.5s ease;
-    padding: 1vh;
-  }
-  .nature:hover {
-    opacity: 1;
-  }
-  .nature::after {
-    content: "Nature";
-    color: white;
-    font-size: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 1;
-    border-radius: 1%;
-    transition: opacity 0.5s ease;
+  .image-wrapper:hover img {
+    transform: scale(1);
   }
 
-  .nature:hover::after {
-    opacity: 0;
+  .image-wrapper > a > div {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-wrapper img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
   }
 `
+
 const creative = () => {
   const data = useStaticQuery(graphql`
     query {
@@ -137,18 +83,12 @@ const creative = () => {
           fluid {
             ...GatsbyImageSharpFluid
           }
-          fixed(width: 370, height: 370) {
-            ...GatsbyImageSharpFixed
-          }
         }
       }
       street: file(relativePath: { eq: "images/Abstract/blueClockVNC.jpg" }) {
         childImageSharp {
           fluid {
             ...GatsbyImageSharpFluid
-          }
-          fixed(width: 370, height: 370) {
-            ...GatsbyImageSharpFixed
           }
         }
       }
@@ -157,9 +97,6 @@ const creative = () => {
           fluid {
             ...GatsbyImageSharpFluid
           }
-          fixed(width: 370, height: 370) {
-            ...GatsbyImageSharpFixed
-          }
         }
       }
       cars: file(relativePath: { eq: "images/Car/Barbataus.JPG" }) {
@@ -167,56 +104,72 @@ const creative = () => {
           fluid {
             ...GatsbyImageSharpFluid
           }
-          fixed(width: 370, height: 370) {
-            ...GatsbyImageSharpFixed
-          }
         }
       }
     }
   `)
+
+  const images = [
+    { name: "People", data: data.people, link: "/people" },
+    { name: "Abstract", data: data.street, link: "/street" },
+    { name: "Nature", data: data.nature, link: "/nature" },
+    { name: "Motor", data: data.cars, link: "/motor" },
+  ]
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      },
+    },
+  }
+
   return (
-    <StyledCreative>
-      <Layout>
-        <div className="grid">
-          <div>
-            <Link to="/people">
-              <Img
-                className="people"
-                fixed={data.people.childImageSharp.fixed}
-                alt=""
-              />
-            </Link>
-          </div>
-          <div>
-            <Link to="/street">
-              <Img
-                className="street"
-                fixed={data.street.childImageSharp.fixed}
-                alt=""
-              />
-            </Link>
-          </div>
-          <div>
-            <Link to="/nature">
-              <Img
-                className="nature"
-                fixed={data.nature.childImageSharp.fixed}
-                alt=""
-              />
-            </Link>
-          </div>
-          <div>
-            <Link to="/motor">
-              <Img
-                className="cars"
-                fixed={data.cars.childImageSharp.fixed}
-                alt=""
-              />
-            </Link>
-          </div>
-        </div>
-      </Layout>
-    </StyledCreative>
+    <Layout>
+      <SEO
+        title="Creative Photography - Toronto Photographer"
+        description="Explore my creative photography portfolio showcasing People, Abstract, Nature, and Motor themes in Toronto."
+      />
+      <StyledCreative>
+        <motion.div
+          className="grid"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {images.map((image, index) => (
+            <motion.div
+              className="image-wrapper"
+              key={index}
+              variants={itemVariants}
+              whileHover={{ scale: 1 }}
+            >
+              <Link to={image.link} aria-label={`${image.name} Photography`}>
+                <Img
+                  fluid={image.data.childImageSharp.fluid}
+                  alt={`${image.name} Photography in Toronto`}
+                />
+                <div className="overlay">{image.name}</div>
+              </Link>
+            </motion.div>
+          ))}
+        </motion.div>
+      </StyledCreative>
+    </Layout>
   )
 }
 

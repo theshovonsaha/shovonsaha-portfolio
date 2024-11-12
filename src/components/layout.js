@@ -10,9 +10,12 @@ import GlobalStyle from "../styles/globalStyle"
 import Header from "./header"
 import Footer from "./footer"
 
-// https://medium.com/@chrisfitkin/how-to-smooth-scroll-links-in-gatsby-3dc445299558
+// Smooth Scroll Initialization
 if (typeof window !== "undefined") {
-  require("smooth-scroll")('a[href*="#"]')
+  require("smooth-scroll")('a[href*="#"]', {
+    speed: 500,
+    speedAsDuration: true,
+  })
 }
 
 const StyledLayoutWrapper = styled.div`

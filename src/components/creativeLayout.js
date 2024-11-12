@@ -2,15 +2,13 @@ import React from "react"
 import Header from "../components/creativeHeader"
 import Footer from "../components/creativeFooter"
 import styled from "styled-components"
+
 const StyledLayout = styled.div`
   .container {
-    margin-left: 10px;
-    margin-right: 20px;
+    margin: 0 20px;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
     min-height: 100vh;
   }
 

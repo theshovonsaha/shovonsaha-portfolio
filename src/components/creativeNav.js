@@ -1,6 +1,9 @@
 import React, { useState } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
+import PropTypes from "prop-types"
+import SEO from "./seo"
+
 const StyledNav = styled.div`
   /* Underline styles */
   a {
@@ -15,7 +18,6 @@ const StyledNav = styled.div`
     padding: 8px 20px;
   }
 
-  /* Fade in */
   a::after {
     content: "";
     position: absolute;
@@ -26,7 +28,6 @@ const StyledNav = styled.div`
     background-color: grey;
     opacity: 0;
     transition: opacity 600ms, transform 600ms;
-    opacity 1;
     transform: scale(0);
     transform-origin: center;
   }
@@ -37,43 +38,41 @@ const StyledNav = styled.div`
     transform: translate3d(0, 0.9em, 1);
     transform: scale(0.5);
   }
+
   .nav-bar {
-  background-color: white;
-  color: black;
-  padding: 10px;
-  padding-bottom: 5%;
-  display: flex;
-  justify-content: space-between;
-}
+    background-color: white;
+    color: black;
+    padding: 10px;
+    padding-bottom: 5%;
+    display: flex;
+    justify-content: space-between;
+  }
 
-.nav-item {
-  padding: 0 10px;
-  color: grey;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-}
-.nav-item:hover {
-  color: black;
-}
-.nav-item a {
-  color: grey;
-  text-decoration: none;
-  padding: 10px;
-}
-.align-left {
-  text-align: left;
-}
+  .nav-item {
+    padding: 0 10px;
+    color: grey;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
 
-.align-right {
-  text-align: right;
-}
+  .nav-item:hover {
+    color: black;
+  }
 
-  /* Show hamburger on mobile */
+  .align-left {
+    text-align: left;
+  }
+
+  .align-right {
+    text-align: right;
+  }
+
+  /* Mobile styles */
   @media (max-width: 767px) {
     .nav-bar {
       display: none;
     }
-  }
+
     .hamburger {
       display: block;
       cursor: pointer;
@@ -83,13 +82,11 @@ const StyledNav = styled.div`
     }
   }
 
-  /* Hamburger styles */
-  @media (min-width: 768px){
+  @media (min-width: 768px) {
     .hamburger {
-    display: none;
+      display: none;
+    }
   }
-  }
-  
 
   .line {
     width: 25px;
@@ -113,7 +110,6 @@ const StyledNav = styled.div`
     transform-origin: left bottom;
   }
 
-  /* Nav overlay styles */
   .nav-overlay {
     position: fixed;
     top: 0;
@@ -126,6 +122,14 @@ const StyledNav = styled.div`
     align-items: center;
     justify-content: center;
     z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .nav-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .nav-overlay a {
@@ -134,91 +138,81 @@ const StyledNav = styled.div`
     margin-bottom: 100px;
     font-size: 1.2rem;
   }
-}
 `
 
-const creativeNav = () => {
-  const [isOpen, setIsOpen] = useState(false)
+const NavLinks = () => (
+  <nav className="nav-bar">
+    <div className="align-left">
+      <Link to="/" className="nav-item">
+        HOME
+      </Link>
+      <Link to="/creative" className="nav-item">
+        CREATIVE
+      </Link>
+      <Link to="/videography" className="nav-item">
+        VIDEOGRAPHY
+      </Link>
+    </div>
+    <div className="align-right">
+      <Link to="/myself" className="nav-item">
+        MYSELF
+      </Link>
+      <Link to="/creativecontact" className="nav-item">
+        CONTACT
+      </Link>
+    </div>
+  </nav>
+)
 
-  const toggleNav = () => {
-    setIsOpen(!isOpen)
+// Add this before the CreativeNav component
+NavLinks.displayName = "NavLinks"
+
+const MobileMenu = ({ isOpen, toggleMenu }) => (
+  <div className={`nav-overlay ${isOpen ? "visible" : ""}`}>
+    <Link to="/" className="nav-item" onClick={toggleMenu}>
+      HOME
+    </Link>
+    <Link to="/creative" className="nav-item" onClick={toggleMenu}>
+      CREATIVE
+    </Link>
+    <Link to="/videography" className="nav-item" onClick={toggleMenu}>
+      VIDEOGRAPHY
+    </Link>
+    <Link to="/myself" className="nav-item" onClick={toggleMenu}>
+      MYSELF
+    </Link>
+    <Link to="/contact" className="nav-item" onClick={toggleMenu}>
+      CONTACT
+    </Link>
+  </div>
+)
+
+MobileMenu.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+}
+
+const CreativeNav = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
   }
+
   return (
-    <>
-      <StyledNav>
-        <div className="nav-container">
-          <nav className="nav-bar">
-            <div className="nav-item align-left">
-              <Link
-                className="nav-item"
-                activeClassName="activeNavItem"
-                to="/creative"
-              >
-                Photography
-              </Link>
-              <Link
-                className="nav-item"
-                activeClassName="activeNavItem"
-                to="/videography"
-              >
-                Videography
-              </Link>
-            </div>
-            <div className="nav-item align-right">
-              <Link
-                className="nav-item"
-                href="https://www.instagram.com/theartist.ca"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Instagram
-              </Link>
-              <Link
-                className="nav-item"
-                activeClassName="activeNavItem"
-                to="/myself"
-              >
-                Myself
-              </Link>
-              <Link
-                className="nav-item"
-                activeClassName="activeNavItem"
-                to="/creativecontact"
-              >
-                Contact
-              </Link>
-            </div>
-          </nav>
-          <div className="hamburger" onClick={toggleNav}>
-            <div className={isOpen ? "line open" : "line"}></div>
-            <div className={isOpen ? "line open" : "line"}></div>
-            <div className={isOpen ? "line open" : "line"}></div>
-          </div>
-          {isOpen && (
-            <div className="nav-overlay">
-              <div className="hamburger" onClick={toggleNav}>
-                <div className={isOpen ? "line open" : "line"}></div>
-                <div className={isOpen ? "line open" : "line"}></div>
-                <div className={isOpen ? "line open" : "line"}></div>
-              </div>
-              <nav>
-                <Link to="/creative">Photography</Link>
-                <Link to="/videography">Videography</Link>
-                <Link
-                  href="https://www.instagram.com/theartist.ca"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Instagram
-                </Link>
-                <Link to="/myself">Myself</Link>
-                <Link to="/creativecontact">Contact</Link>
-              </nav>
-            </div>
-          )}
-        </div>
-      </StyledNav>
-    </>
+    <StyledNav>
+      <NavLinks />
+      <div
+        className={`hamburger ${isMenuOpen ? "open" : ""}`}
+        onClick={toggleMenu}
+      >
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+      </div>
+      <MobileMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+    </StyledNav>
   )
 }
-export default creativeNav
+
+export default CreativeNav

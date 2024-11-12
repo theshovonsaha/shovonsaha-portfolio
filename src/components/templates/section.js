@@ -4,18 +4,17 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
+import { motion } from "framer-motion"
 
 import ContentWrapper from "../styles/contentWrapper"
 
-// Full Width Section
-const StyledSection = styled.section`
+const StyledSection = styled(motion.section)`
   width: 100%;
   height: auto;
   background: ${({ theme }) => theme.colors.background};
   margin-top: 6rem;
 `
 
-// Fixed width container for content stuff
 const StyledContentWrapper = styled(ContentWrapper)`
   && {
     width: 100%;
@@ -26,24 +25,44 @@ const StyledContentWrapper = styled(ContentWrapper)`
   }
 `
 
-// Add more styled components here
+const StyledTitle = styled.h3`
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+`
 
-const ___Section___ = ({ content }) => {
-  // Extract GraphQL data here
+const Section = ({ content }) => {
+  // Extract GraphQL data
   const sectionDetails = content[0].node
 
+  const variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  }
+
   return (
-    <StyledSection id="___SectionHashId___">
+    <StyledSection id={sectionDetails.frontmatter.hashId}>
       <StyledContentWrapper>
-        <h3>___SectionTitle___</h3>
-        {/* ____SectionContent____ */}
+        <motion.div initial="hidden" animate="visible" variants={variants}>
+          <StyledTitle>{sectionDetails.frontmatter.title}</StyledTitle>
+          {/* Render section content here */}
+          {sectionDetails.body && (
+            <div dangerouslySetInnerHTML={{ __html: sectionDetails.body }} />
+          )}
+          {/* Additional section-specific content */}
+        </motion.div>
       </StyledContentWrapper>
     </StyledSection>
   )
 }
 
-___Section___.propTypes = {
-  content: PropTypes.any.isRequired,
+Section.propTypes = {
+  content: PropTypes.array.isRequired,
 }
 
-export default ___Section___
+export default Section

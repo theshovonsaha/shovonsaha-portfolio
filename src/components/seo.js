@@ -1,11 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
-import Helmet from "react-helmet"
+import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-import { lightTheme } from "../styles/theme"
-
-const SEO = ({ description, lang, meta, title }) => {
+const SEO = ({ title, description, lang, meta }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -14,6 +12,7 @@ const SEO = ({ description, lang, meta, title }) => {
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -21,6 +20,20 @@ const SEO = ({ description, lang, meta, title }) => {
   )
 
   const metaDescription = description || site.siteMetadata.description
+  const defaultTitle = site.siteMetadata?.title
+
+  const schemaOrgJSONLD = [
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      name: site.siteMetadata.author,
+      url: site.siteMetadata.siteUrl,
+      sameAs: [
+        "https://www.instagram.com/theshovonsaha",
+        "https://www.linkedin.com/in/theshovonsaha/",
+      ],
+    },
+  ]
 
   return (
     <Helmet
@@ -28,7 +41,7 @@ const SEO = ({ description, lang, meta, title }) => {
         lang,
       }}
       title={title}
-      titleTemplate={`%s`}
+      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
       meta={[
         {
           name: `description`,
@@ -36,10 +49,6 @@ const SEO = ({ description, lang, meta, title }) => {
         },
         {
           property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:site_name`,
           content: title,
         },
         {
@@ -52,11 +61,11 @@ const SEO = ({ description, lang, meta, title }) => {
         },
         {
           name: `twitter:card`,
-          content: `summary`,
+          content: `summary_large_image`,
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.author,
+          content: site.siteMetadata?.author || ``,
         },
         {
           name: `twitter:title`,
@@ -66,30 +75,28 @@ const SEO = ({ description, lang, meta, title }) => {
           name: `twitter:description`,
           content: metaDescription,
         },
-        {
-          name: `msapplication-TileColor`,
-          content: lightTheme.colors.primary,
-        },
-        {
-          name: `theme-color`,
-          content: lightTheme.colors.primary,
-        },
       ].concat(meta)}
+      script={[
+        {
+          type: `application/ld+json`,
+          innerHTML: JSON.stringify(schemaOrgJSONLD),
+        },
+      ]}
     />
   )
-}
-
-SEO.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  meta: PropTypes.array,
-  lang: PropTypes.string,
 }
 
 SEO.defaultProps = {
   lang: `en`,
   meta: [],
   description: ``,
+}
+
+SEO.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  lang: PropTypes.string,
+  meta: PropTypes.arrayOf(PropTypes.object),
 }
 
 export default SEO

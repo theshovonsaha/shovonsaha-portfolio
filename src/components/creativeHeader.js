@@ -17,7 +17,7 @@ const creativeHeader = () => {
   return (
     <StyledHeader>
       <Link className="name" to="/creative">
-        Shovon Saha
+        Shovon Saha - Creative Portfolio
       </Link>
       <Nav />
     </StyledHeader>
