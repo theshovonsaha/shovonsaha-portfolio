@@ -8,7 +8,10 @@ import Gallery from "../components/Gallery"
 const People = () => {
   const data = useStaticQuery(graphql`
     query {
-      allFile(filter: { relativeDirectory: { eq: "images/People" } }) {
+      allFile(
+        filter: { relativeDirectory: { eq: "images/People" } }
+        sort: { fields: name, order: ASC }
+      ) {
         edges {
           node {
             childImageSharp {

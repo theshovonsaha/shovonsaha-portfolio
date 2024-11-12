@@ -106,5 +106,14 @@ module.exports = {
           }),
       },
     },
+    {
+      resolve: `gatsby-plugin-webpack-bundle-analyzer`,
+      options: {
+        production: true, // Run only in production builds
+        disable: process.env.NODE_ENV === "development", // Disable during development
+        analyzerMode: "static", // Generates a static HTML file
+        reportFilename: "bundle-analyzer-report.html",
+      },
+    },
   ],
 }

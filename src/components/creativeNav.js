@@ -79,6 +79,7 @@ const StyledNav = styled.div`
       position: absolute;
       right: 20px;
       top: 20px;
+      z-index: 2;
     }
   }
 
@@ -143,11 +144,8 @@ const StyledNav = styled.div`
 const NavLinks = () => (
   <nav className="nav-bar">
     <div className="align-left">
-      <Link to="/" className="nav-item">
-        HOME
-      </Link>
       <Link to="/creative" className="nav-item">
-        CREATIVE
+        HOME
       </Link>
       <Link to="/videography" className="nav-item">
         VIDEOGRAPHY
@@ -160,6 +158,9 @@ const NavLinks = () => (
       <Link to="/creativecontact" className="nav-item">
         CONTACT
       </Link>
+      <Link to="/" className="nav-item">
+        Personal Website
+      </Link>
     </div>
   </nav>
 )
@@ -169,21 +170,25 @@ NavLinks.displayName = "NavLinks"
 
 const MobileMenu = ({ isOpen, toggleMenu }) => (
   <div className={`nav-overlay ${isOpen ? "visible" : ""}`}>
-    <Link to="/" className="nav-item" onClick={toggleMenu}>
-      HOME
-    </Link>
-    <Link to="/creative" className="nav-item" onClick={toggleMenu}>
-      CREATIVE
-    </Link>
-    <Link to="/videography" className="nav-item" onClick={toggleMenu}>
-      VIDEOGRAPHY
-    </Link>
-    <Link to="/myself" className="nav-item" onClick={toggleMenu}>
-      MYSELF
-    </Link>
-    <Link to="/contact" className="nav-item" onClick={toggleMenu}>
-      CONTACT
-    </Link>
+    <div>
+      <Link to="/creative" className="nav-item">
+        HOME
+      </Link>
+      <Link to="/videography" className="nav-item">
+        VIDEOGRAPHY
+      </Link>
+    </div>
+    <div className="align-right">
+      <Link to="/myself" className="nav-item">
+        MYSELF
+      </Link>
+      <Link to="/creativecontact" className="nav-item">
+        CONTACT
+      </Link>
+      <Link to="/" className="nav-item">
+        Personal Website
+      </Link>
+    </div>
   </div>
 )
 
@@ -210,7 +215,11 @@ const CreativeNav = () => {
         <div className="line"></div>
         <div className="line"></div>
       </div>
-      <MobileMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      <MobileMenu
+        className={`hamburger ${isMenuOpen ? "open" : ""}`}
+        isOpen={isMenuOpen}
+        toggleMenu={toggleMenu}
+      />
     </StyledNav>
   )
 }

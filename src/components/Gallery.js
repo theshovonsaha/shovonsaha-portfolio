@@ -84,6 +84,7 @@ const Gallery = ({ title, data }) => {
             <Img
               fluid={node.childImageSharp.fluid}
               alt={`${title} Photography - ${node.name}`}
+              loading={index === 0 ? "eager" : "lazy"}
             />
           </motion.div>
         ))}
