@@ -65,23 +65,23 @@ const Projects = ({ content }) => {
   const [filter, setFilter] = useState("All")
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
+        staggerChildren: 0.2,
       },
     },
   }
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
       },
     },
   }
@@ -115,9 +115,9 @@ const Projects = ({ content }) => {
       <StyledContentWrapper>
         <motion.h3
           className="section-title"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
         >
           Projects
         </motion.h3>
@@ -151,7 +151,7 @@ const Projects = ({ content }) => {
             {filteredProjects?.map((project, index) => (
               <motion.div
                 key={`${project.title}-${index}`}
-                variants={cardVariants}
+                variants={itemVariants}
               >
                 <ProjectCard {...project} />
               </motion.div>
