@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
-
+import LogRocket from "logrocket"
 const SEO = ({ title, description, lang, meta }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -28,10 +28,30 @@ const SEO = ({ title, description, lang, meta }) => {
       "@type": "Person",
       name: site.siteMetadata.author,
       url: site.siteMetadata.siteUrl,
+      jobTitle: "Software Developer and Photographer",
+      description:
+        "Toronto-based Software Developer, Photographer, and Videographer with expertise in web development and creative visual content.",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Toronto",
+        addressRegion: "ON",
+        addressCountry: "CA",
+      },
       sameAs: [
         "https://www.instagram.com/theshovonsaha",
         "https://www.linkedin.com/in/theshovonsaha/",
+        "https://github.com/theshovon",
       ],
+      knowsAbout: [
+        "Software Development",
+        "Photography",
+        "Videography",
+        "Web Development",
+      ],
+      worksFor: {
+        "@type": "Organization",
+        name: "Shovon Saha Photography & Development",
+      },
     },
   ]
 
@@ -75,11 +95,49 @@ const SEO = ({ title, description, lang, meta }) => {
           name: `twitter:description`,
           content: metaDescription,
         },
+        {
+          name: `geo.region`,
+          content: `CA-ON`,
+        },
+        {
+          name: `geo.placename`,
+          content: `Toronto`,
+        },
+        {
+          name: `geo.position`,
+          content: `43.653226;-79.383184`,
+        },
       ].concat(meta)}
       script={[
         {
           type: `application/ld+json`,
           innerHTML: JSON.stringify(schemaOrgJSONLD),
+        },
+        {
+          type: `text/javascript`,
+          innerHTML: `
+            (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "oxt7hrmeew");
+          `,
+        },
+        {
+          type: `text/javascript`,
+          defer: true,
+          dataDomain: "theshovonsaha.com",
+          src: "https://plausible.io/js/script.js",
+        },
+        {
+          type: "text/javascript",
+          src: "https://cdn.logrocket.io/LogRocket.min.js",
+        },
+        {
+          type: "text/javascript",
+          innerHTML: `
+            window.LogRocket && window.LogRocket.init('k3rqbk/ss-portfolio');
+          `,
         },
       ]}
     />

@@ -10,10 +10,13 @@ const {
 
 module.exports = {
   siteMetadata: {
-    author: author,
-    title: siteTitle,
-    description: siteDescription,
-    siteUrl: siteUrl,
+    author: "Shovon Saha",
+    title: "Shovon Saha | Toronto Software Developer & Photographer",
+    description:
+      "Toronto-based Software Developer, Photographer, and Videographer specializing in web development, creative photography, and professional videography services.",
+    siteUrl: "https://theshovonsaha.com",
+    keywords:
+      "Toronto software developer, Toronto photographer, Toronto videographer, web development Toronto, professional photography Toronto",
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -24,14 +27,16 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-netlify`,
-    // {
-    //   resolve: `gatsby-plugin-gtag`,
-    //   options: {
-    //     trackingId: `UA-XXXXXXXX-X`,
-    //     head: false,
-    //     anonymize: true,
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-gtag`,
+      options: {
+        trackingId: `G-XXXXXXXXXX`,
+        head: true,
+        anonymize: true,
+        pageTransitionDelay: 0,
+        defer: false,
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -113,6 +118,17 @@ module.exports = {
         disable: process.env.NODE_ENV === "development", // Disable during development
         analyzerMode: "static", // Generates a static HTML file
         reportFilename: "bundle-analyzer-report.html",
+      },
+    },
+    {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: "https://theshovonsaha.com",
+        sitemap: "https://theshovonsaha.com/sitemap.xml",
+        policy: [
+          { userAgent: "*", allow: "/" },
+          { userAgent: "*", disallow: ["/admin", "/private"] },
+        ],
       },
     },
   ],

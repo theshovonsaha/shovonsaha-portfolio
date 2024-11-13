@@ -40,7 +40,7 @@ const IndexPage = ({ data }) => {
         <Articles />
         <About content={data.about.edges} />
         <Skills content={data.skills.edges} />
-        {/* <Projects content={data.projects.edges} /> */}
+        <Projects content={data.projects.edges} />
         <Contact content={data.contact.edges} />
       </Layout>
     </GlobalStateProvider>
@@ -128,25 +128,17 @@ export const pageQuery = graphql`
     ) {
       edges {
         node {
-          body
           frontmatter {
             title
-            category
-            emoji
-            external
-            github
-            screenshot {
-              childImageSharp {
-                fluid(maxWidth: 400, quality: 90) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
+          }
+          exports {
+            projects {
+              title
+              description
+              technologies
+              achievements
+              link
             }
-            tags
-            position
-            buttonVisible
-            buttonUrl
-            buttonText
           }
         }
       }

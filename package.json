@@ -28,6 +28,7 @@
     "gatsby-source-filesystem": "^2.7.0",
     "gatsby-transformer-sharp": "^2.8.0",
     "intersection-observer": "^0.11.0",
+    "logrocket": "^9.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -62,7 +63,8 @@
     "lint-staged": "^10.5.3",
     "netlify-plugin-cypress": "^1.4.1",
     "prettier": "^1.19.1",
-    "start-server-and-test": "^1.11.7"
+    "start-server-and-test": "^1.11.7",
+    "structured-data-testing-tool": "^4.5.0"
   },
   "keywords": [
     "gatsby",
@@ -87,7 +89,8 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "test:e2e": "start-server-and-test develop http://localhost:9000 cy:open",
-    "test:e2e:ci": "start-server-and-test serve http://localhost:9000 cy:run"
+    "test:e2e:ci": "start-server-and-test serve http://localhost:9000 cy:run",
+    "test:schema": "node scripts/test-schema.js"
   },
   "husky": {
     "hooks": {

@@ -85,6 +85,15 @@ const creative = () => {
           }
         }
       }
+      prewed: file(
+        relativePath: { eq: "images/CreativeTiles/SargamDramatic.jpg" }
+      ) {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
       street: file(relativePath: { eq: "images/Abstract/blueClockVNC.jpg" }) {
         childImageSharp {
           fluid {
@@ -111,6 +120,7 @@ const creative = () => {
 
   const images = [
     { name: "People", data: data.people, link: "/people" },
+    { name: "Weddings", data: data.prewed, link: "/weddings" },
     { name: "Abstract", data: data.street, link: "/street" },
     { name: "Nature", data: data.nature, link: "/nature" },
     { name: "Motor", data: data.cars, link: "/motor" },
