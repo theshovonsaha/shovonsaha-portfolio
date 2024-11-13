@@ -40,7 +40,7 @@ const SEO = ({ title, description, lang, meta }) => {
       sameAs: [
         "https://www.instagram.com/theshovonsaha",
         "https://www.linkedin.com/in/theshovonsaha/",
-        "https://github.com/theshovon",
+        "https://github.com/theshovonsaha",
       ],
       knowsAbout: [
         "Software Development",
