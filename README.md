@@ -32,6 +32,7 @@ To set up this project locally, follow these steps:
    Make sure you have Node.js installed. Then, run:
 
    ```bash
+   npm rebuild sharp
    npm install
    ```
 

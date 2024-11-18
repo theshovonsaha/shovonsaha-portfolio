@@ -49,15 +49,17 @@ const FilterButton = styled(motion.button)`
   color: ${({ active, theme }) =>
     active ? theme.colors.background : theme.colors.primary};
   border: 2px solid ${({ theme }) => theme.colors.primary};
-  padding: 0.5rem 1rem;
-  border-radius: ${({ theme }) => theme.borderRadius};
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
   &:hover {
     background: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.background};
+    transform: translateY(-2px);
   }
 `
 
