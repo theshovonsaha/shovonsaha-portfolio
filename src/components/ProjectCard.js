@@ -83,6 +83,7 @@ const ProjectCard = ({
   technologies,
   achievements,
   link,
+  demo,
 }) => {
   return (
     <Card>
@@ -103,6 +104,16 @@ const ProjectCard = ({
           View Project
         </LinkButton>
       )}
+      {demo && (
+        <LinkButton
+          href={demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ marginLeft: link ? "1rem" : "0" }}
+        >
+          Live Demo
+        </LinkButton>
+      )}
     </Card>
   )
 }
@@ -113,6 +124,7 @@ ProjectCard.propTypes = {
   technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
   achievements: PropTypes.arrayOf(PropTypes.string).isRequired,
   link: PropTypes.string,
+  demo: PropTypes.string,
 }
 
 export { ProjectCard }
