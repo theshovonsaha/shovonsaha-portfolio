@@ -1,33 +1,89 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
+import { FaExternalLinkAlt, FaGlobe } from "react-icons/fa"
 
 const Card = styled.div`
   background: ${({ theme }) => theme.colors.card};
   border-radius: ${({ theme }) => theme.borderRadius};
-  padding: 2rem;
-  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.boxShadow};
-  transition: all 0.3s ease-out;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 
   &:hover {
-    box-shadow: 0 5px 15px ${({ theme }) => theme.colors.boxShadowHover};
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => `${theme.colors.primary}80`}
+    );
+  }
+`
+
+const TopRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
 `
 
 const Title = styled.h4`
   color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+  flex-grow: 1;
+  padding-right: 1rem;
+`
+
+const ActionButtons = styled.div`
+  display: flex;
+  gap: 1rem;
+`
+
+const IconButton = styled.a`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.background};
+    transform: rotate(12deg) scale(1.1);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
 `
 
 const Description = styled.p`
   color: ${({ theme }) => theme.colors.text};
-  margin-bottom: 1.5rem;
-  flex-grow: 1;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  font-size: 1.1rem;
 `
 
 const Technologies = styled.ul`
@@ -35,45 +91,44 @@ const Technologies = styled.ul`
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
 
   li {
-    background: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.background};
-    padding: 0.4rem 0.8rem;
-    border-radius: ${({ theme }) => theme.borderRadius};
+    background: ${({ theme }) => `${theme.colors.primary}15`};
+    color: ${({ theme }) => theme.colors.primary};
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
     font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.background};
+      transform: translateY(-2px);
+    }
   }
 `
 
 const Achievements = styled.ul`
-  list-style: disc;
-  padding-left: 1.2rem;
-  margin-bottom: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
   color: ${({ theme }) => theme.colors.text};
 
   li {
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-  }
-`
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: flex-start;
 
-const LinkButton = styled.a`
-  background: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.background};
-  padding: 0.8rem 1.6rem;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  text-decoration: none;
-  text-align: center;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  margin-top: auto;
-  display: inline-block;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.primaryHover};
-    transform: translateY(-2px);
+    &::before {
+      content: "→";
+      color: ${({ theme }) => theme.colors.primary};
+      margin-right: 0.75rem;
+      font-weight: bold;
+    }
   }
 `
 
@@ -87,7 +142,33 @@ const ProjectCard = ({
 }) => {
   return (
     <Card>
-      <Title>{title}</Title>
+      <TopRow>
+        <Title>{title}</Title>
+        <ActionButtons>
+          {link && (
+            <IconButton
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="View Project"
+              aria-label="View Project"
+            >
+              <FaExternalLinkAlt />
+            </IconButton>
+          )}
+          {demo && (
+            <IconButton
+              href={demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Live Demo"
+              aria-label="Live Demo"
+            >
+              <FaGlobe />
+            </IconButton>
+          )}
+        </ActionButtons>
+      </TopRow>
       <Description>{description}</Description>
       <Technologies>
         {technologies.map((tech, index) => (
@@ -99,21 +180,6 @@ const ProjectCard = ({
           <li key={index}>{achievement}</li>
         ))}
       </Achievements>
-      {link && (
-        <LinkButton href={link} target="_blank" rel="noopener noreferrer">
-          View Project
-        </LinkButton>
-      )}
-      {demo && (
-        <LinkButton
-          href={demo}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ marginLeft: link ? "1rem" : "0" }}
-        >
-          Live Demo
-        </LinkButton>
-      )}
     </Card>
   )
 }
