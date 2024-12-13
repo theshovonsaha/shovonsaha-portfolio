@@ -9,6 +9,7 @@ import { useDarkMode } from "../hooks"
 import GlobalStyle from "../styles/globalStyle"
 import Header from "./header"
 import Footer from "./footer"
+import Snowfall from "./snowfall"
 
 // Smooth Scroll Initialization
 if (typeof window !== "undefined") {
@@ -36,6 +37,7 @@ const Layout = ({ children }) => {
     <StyledLayoutWrapper>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        <Snowfall snowflakeCount={50} />
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
