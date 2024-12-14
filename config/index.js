@@ -70,6 +70,10 @@ module.exports = {
   navLinks: {
     menu: [
       {
+        name: "Services",
+        url: "https://adzeera.com/",
+      },
+      {
         name: "Creative",
         url: "/creative",
       },
