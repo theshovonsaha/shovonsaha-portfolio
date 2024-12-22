@@ -158,7 +158,6 @@ const CarouselContainer = styled.div`
   .image-info {
     position: fixed;
     bottom: 1.5rem;
-    left: 50%;
     transform: translateX(-50%);
     color: white;
     background: rgba(0, 0, 0, 0.7);
