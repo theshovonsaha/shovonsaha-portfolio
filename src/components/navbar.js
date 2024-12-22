@@ -21,8 +21,10 @@ const StyledNav = styled.nav`
     font-weight: 700;
     text-align: center;
     position: relative;
-    margin: 0 0 0 1.25rem;
+    margin-right: 1.25rem; /* Space between each link */
     padding: 0;
+    transition: all 0.3s ease; /* Added smooth transition for hover effect */
+
     &::before {
       transition: 200ms ease-out;
       height: 0.1563rem;
@@ -31,7 +33,9 @@ const StyledNav = styled.nav`
       background-color: ${({ theme }) => theme.colors.primary};
       width: 0%;
       bottom: -0.125rem;
+      left: 0;
     }
+
     &:hover::before {
       width: 100%;
     }
@@ -46,7 +50,7 @@ const StyledNav = styled.nav`
     transition: 20ms ease-out;
     font-size: 1rem;
     padding: 0.5rem 1.5rem;
-    margin: 0;
+    margin-left: 2rem; // Added space between buttons
     &:hover {
       background: ${({ theme }) => theme.colors.primary};
       color: ${({ theme }) => theme.colors.background};
@@ -60,7 +64,7 @@ const Navbar = () => {
     <StyledNav>
       {menu.map(({ name, url }, key) => {
         return (
-          <Link className="nav-link" key={key} to={url}>
+          <Link className="nav-link " key={key} to={url}>
             {name}
           </Link>
         )

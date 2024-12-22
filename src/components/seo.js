@@ -44,13 +44,35 @@ const SEO = ({ title, description, lang, meta }) => {
       ],
       knowsAbout: [
         "Software Development",
+        "Web Development",
+        "Frontend Development",
+        "Backend Development",
+        "Full Stack Development",
+        "Mobile Development",
+        "UI/UX Design",
+        "Web Design",
+        "Graphic Design",
         "Photography",
         "Videography",
         "Web Development",
+        "Wedding Photography",
+        "Portrait Photography",
+        "Event Photography",
+        "People Photography",
+        "Landscape Photography",
+        "Commercial Photography",
+        "Product Photography",
+        "Automotive Photography",
+        "Fine Art Photography",
+        "Toronto",
+        "New York City",
+        "Los Angeles",
+        "Chicago",
+        "San Francisco",
       ],
       worksFor: {
         "@type": "Organization",
-        name: "Shovon Saha Photography & Development",
+        name: "Shovon Saha Photography/Videography & Software Development",
       },
     },
   ]
@@ -127,7 +149,8 @@ const SEO = ({ title, description, lang, meta }) => {
           type: `text/javascript`,
           defer: true,
           dataDomain: "theshovonsaha.com",
-          src: "https://plausible.io/js/script.js",
+          src:
+            "https://plausible.io/js/script.hash.outbound-links.pageview-props.tagged-events.js",
         },
         {
           type: "text/javascript",
@@ -136,7 +159,7 @@ const SEO = ({ title, description, lang, meta }) => {
         {
           type: "text/javascript",
           innerHTML: `
-            window.LogRocket && window.LogRocket.init('k3rqbk/ss-portfolio');
+            window.LogRocket && window.LogRocket.init('whjmsk/personal-website');
           `,
         },
       ]}

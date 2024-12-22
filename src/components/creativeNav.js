@@ -42,7 +42,6 @@ const StyledNav = styled.div`
     color: black;
     text-decoration: none;
     transition: all 0.3s ease;
-    left: 30px;
     &:hover {
       transform: translateY(-1px);
     }
@@ -241,6 +240,7 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
     { to: "/videography", text: "Videography" },
     { to: "/myself", text: "About" },
     { to: "/creativecontact", text: "Contact" },
+    { to: "/", text: "Personal Website" },
   ]
 
   return (

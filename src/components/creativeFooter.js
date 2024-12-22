@@ -85,7 +85,7 @@ const CreativeFooter = () => {
         </p>
         <div className="social-links">
           <a
-            href="https://instagram.com"
+            href="https://instagram.com/theartist.ca"
             target="_blank"
             rel="noopener noreferrer"
             className="social-link"
@@ -93,14 +93,14 @@ const CreativeFooter = () => {
             Instagram
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://linkedin.com/in/theshovonsaha"
             target="_blank"
             rel="noopener noreferrer"
             className="social-link"
           >
             LinkedIn
           </a>
-          <a href="mailto:contact@example.com" className="social-link">
+          <a href="mailto:theartist.ca@gmail.com" className="social-link">
             Email
           </a>
         </div>
