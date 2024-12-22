@@ -20,9 +20,8 @@ const Overlay = styled(motion.div)`
 
 const CarouselContainer = styled.div`
   position: relative;
-  width: 95%;
-  height: 95vh;
-  max-width: 2000px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,13 +35,14 @@ const CarouselContainer = styled.div`
     padding: 2rem;
 
     @media (max-width: 768px) {
-      padding: 1rem;
+      padding: 3rem 1rem;
     }
 
     .gatsby-image-wrapper {
-      width: 100%;
-      height: 100%;
-      max-height: 95vh;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
 
       img {
         object-fit: contain !important;
@@ -54,7 +54,7 @@ const CarouselContainer = styled.div`
     position: fixed;
     top: 1.5rem;
     right: 1.5rem;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
     width: 3rem;
@@ -66,6 +66,7 @@ const CarouselContainer = styled.div`
     border-radius: 50%;
     opacity: 0.8;
     transition: all 0.2s ease-out;
+    z-index: 1010;
 
     svg {
       font-size: 1.5rem;
@@ -74,8 +75,7 @@ const CarouselContainer = styled.div`
 
     &:hover {
       opacity: 1;
-      background: rgba(255, 255, 255, 0.1);
-      transform: rotate(90deg);
+      background: rgba(0, 0, 0, 0.7);
     }
 
     @media (max-width: 768px) {
@@ -94,8 +94,8 @@ const CarouselContainer = styled.div`
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
     width: 3.5rem;
     height: 3.5rem;
@@ -104,8 +104,9 @@ const CarouselContainer = styled.div`
     justify-content: center;
     cursor: pointer;
     border-radius: 50%;
-    opacity: 1;
+    opacity: 0.8;
     transition: all 0.2s ease-out;
+    z-index: 1010;
 
     svg {
       font-size: 1.5rem;
@@ -113,8 +114,8 @@ const CarouselContainer = styled.div`
     }
 
     &:hover {
-      background: rgba(255, 255, 255, 0.25);
-      border-color: rgba(255, 255, 255, 0.5);
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.7);
     }
 
     &.prev {
@@ -134,32 +135,33 @@ const CarouselContainer = styled.div`
         transform: translateX(2px);
       }
     }
-  }
 
     @media (max-width: 768px) {
       width: 2.75rem;
       height: 2.75rem;
+      background: rgba(0, 0, 0, 0.7);
 
       svg {
         font-size: 1.25rem;
       }
 
       &.prev {
-        left: 1rem;
+        left: 0.5rem;
       }
 
       &.next {
-        right: 1rem;
+        right: 0.5rem;
       }
     }
   }
 
   .image-info {
     position: fixed;
-    bottom: 3rem;
+    bottom: 1.5rem;
+    left: 50%;
     transform: translateX(-50%);
     color: white;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 0.75rem 1.5rem;
     border-radius: 2rem;
@@ -168,19 +170,13 @@ const CarouselContainer = styled.div`
     gap: 0.75rem;
     font-size: 0.875rem;
     letter-spacing: 0.5px;
-    opacity: 0.8;
-
-    .divider {
-      width: 3px;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 50%;
-    }
+    z-index: 1010;
 
     @media (max-width: 768px) {
       bottom: 1rem;
       padding: 0.5rem 1rem;
       font-size: 0.75rem;
+      background: rgba(0, 0, 0, 0.7);
     }
   }
 `
