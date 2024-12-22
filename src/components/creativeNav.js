@@ -42,7 +42,7 @@ const StyledNav = styled.div`
     color: black;
     text-decoration: none;
     transition: all 0.3s ease;
-
+    left: 30px;
     &:hover {
       transform: translateY(-1px);
     }
@@ -98,7 +98,9 @@ const StyledNav = styled.div`
       }
     }
   }
-
+  .logo2 {
+    display: none;
+  }
   .special-link {
     color: #1a1a1a;
     padding: 0.5rem 1.5rem;
@@ -196,6 +198,11 @@ const StyledNav = styled.div`
     .logo {
       font-size: 1rem;
     }
+    .logo2 {
+      display: block;
+      top: -50px;
+      left: 30px;
+    }
   }
 `
 
@@ -210,7 +217,7 @@ const NavLinks = () => (
       </Link>
     </div>
     <div className="nav-section">
-      <Link to="/creative" className="logo">
+      <Link to="/creative" className="logo nav-item">
         SHOVON SAHA
       </Link>
     </div>
@@ -237,18 +244,25 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
   ]
 
   return (
-    <div className={`mobile-menu ${isOpen ? "visible" : ""}`}>
-      {links.map((link, index) => (
-        <Link
-          key={link.to}
-          to={link.to}
-          className={`nav-item ${isOpen ? "animate" : ""}`}
-          onClick={toggleMenu}
-          style={{ transitionDelay: `${index * 0.1}s` }}
-        >
-          {link.text}
+    <div>
+      <div>
+        <Link to="/creative" className="logo2 nav-item">
+          SHOVON SAHA
         </Link>
-      ))}
+      </div>
+      <div className={`mobile-menu ${isOpen ? "visible" : ""}`}>
+        {links.map((link, index) => (
+          <Link
+            key={link.to}
+            to={link.to}
+            className={`nav-item ${isOpen ? "animate" : ""}`}
+            onClick={toggleMenu}
+            style={{ transitionDelay: `${index * 0.1}s` }}
+          >
+            {link.text}
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }

@@ -40,8 +40,12 @@ const StyledMyself = styled.section`
 
     @media (max-width: 1024px) {
       grid-template-columns: 1fr;
-      text-align: center;
-      padding: 4rem 1.5rem;
+      gap: 2rem;
+      padding: 3rem 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+      padding: 2rem 1rem;
     }
   }
 
@@ -50,11 +54,27 @@ const StyledMyself = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 1024px) {
+      margin-bottom: 1rem;
+    }
   }
 
   .profile-container {
     position: relative;
     margin-bottom: 3rem;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+
+    @media (max-width: 1024px) {
+      margin-bottom: 2rem;
+      max-width: 300px;
+    }
+
+    @media (max-width: 480px) {
+      max-width: 250px;
+    }
 
     &::before {
       content: "";
@@ -66,6 +86,13 @@ const StyledMyself = styled.section`
       border: 1px solid #000;
       z-index: 0;
       transition: all 0.3s ease;
+
+      @media (max-width: 480px) {
+        top: -10px;
+        left: -10px;
+        right: 10px;
+        bottom: 10px;
+      }
     }
 
     &:hover::before {
@@ -74,22 +101,18 @@ const StyledMyself = styled.section`
   }
 
   .profile-image {
-    width: 400px;
-    height: 500px;
     position: relative;
     z-index: 1;
     box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.1),
       -20px -20px 60px rgba(255, 255, 255, 0.8);
     overflow: hidden;
+    aspect-ratio: 4/5;
+    width: 100%;
+    height: auto;
 
     @media (max-width: 1024px) {
-      width: 300px;
-      height: 400px;
-    }
-
-    @media (max-width: 480px) {
-      width: 250px;
-      height: 350px;
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1),
+        -10px -10px 30px rgba(255, 255, 255, 0.8);
     }
 
     img {
@@ -107,6 +130,11 @@ const StyledMyself = styled.section`
     justify-content: center;
     padding: 2rem;
 
+    @media (max-width: 1024px) {
+      padding: 1rem 0;
+      text-align: center;
+    }
+
     h1 {
       font-size: 3rem;
       font-weight: 200;
@@ -114,6 +142,16 @@ const StyledMyself = styled.section`
       letter-spacing: 0.2em;
       color: #000;
       position: relative;
+
+      @media (max-width: 1024px) {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 2rem;
+        letter-spacing: 0.15em;
+      }
 
       &::after {
         content: "";
@@ -137,6 +175,11 @@ const StyledMyself = styled.section`
       color: #333;
       margin-bottom: 2rem;
 
+      @media (max-width: 480px) {
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+
       p {
         margin-bottom: 1.5rem;
         position: relative;
@@ -144,6 +187,7 @@ const StyledMyself = styled.section`
 
         @media (max-width: 1024px) {
           padding-left: 0;
+          text-align: center;
         }
 
         &::before {
@@ -174,9 +218,13 @@ const StyledMyself = styled.section`
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      display: inline-block;
 
       @media (max-width: 1024px) {
         align-self: center;
+        margin-top: 1rem;
+        padding: 0.875rem 1.75rem;
+        font-size: 0.9rem;
       }
 
       &::before {
@@ -207,6 +255,16 @@ const StyledMyself = styled.section`
     font-size: 1.5rem;
     margin-top: 2rem;
     opacity: 0.8;
+
+    @media (max-width: 1024px) {
+      font-size: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
   }
 `
 
