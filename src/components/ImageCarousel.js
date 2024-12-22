@@ -156,8 +156,7 @@ const CarouselContainer = styled.div`
 
   .image-info {
     position: fixed;
-    bottom: 1.5rem;
-    left: 50%;
+    bottom: 3rem;
     transform: translateX(-50%);
     color: white;
     background: transparent;
@@ -249,8 +248,6 @@ const ImageCarousel = ({ images, currentIndex, onClose, onNext, onPrev }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
           >
-            <span>{currentImage.name}</span>
-            <div className="divider" />
             <span>
               {currentIndex + 1} of {images.length}
             </span>
