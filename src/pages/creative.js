@@ -2,86 +2,224 @@ import React from "react"
 import Layout from "../components/creativeLayout"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import Img from "gatsby-image"
-import styled from "styled-components"
 import { motion } from "framer-motion"
 import SEO from "../components/seo"
+import styled from "styled-components"
 
-const StyledCreative = styled.section`
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    justify-items: center;
-    padding: 2rem 0;
-  }
-
-  .image-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 100%;
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #fff;
+const StyledPortfolio = styled.div`
+  .hero {
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    position: relative;
+    overflow: hidden;
   }
 
-  .image-wrapper:hover .overlay {
-    opacity: 0;
+  .hero-content {
+    text-align: center;
+    max-width: 900px;
+    z-index: 2;
   }
 
-  .image-wrapper:hover img {
-    transform: scale(1);
+  .hero-title {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
-  .image-wrapper > a > div {
+  .hero-subtitle {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    color: #4a4a4a;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .scroll-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: #1a1a1a;
+    color: white;
+    border-radius: 3rem;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+
+    &:hover {
+      transform: translateY(-2px);
+      background: transparent;
+      color: #1a1a1a;
+      border-color: #1a1a1a;
+    }
+  }
+
+  .portfolio {
+    padding: 8rem 2rem;
+    background: #fafafa;
+
+    @media (min-width: 768px) {
+      padding: 10rem 4rem;
+    }
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+    max-width: 2200px;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .category {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    grid-column: span 12;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    @media (min-width: 768px) {
+      &.half {
+        grid-column: span 6;
+        aspect-ratio: 3/2;
+      }
+      &.third {
+        grid-column: span 4;
+        aspect-ratio: 2/3;
+      }
+      &.two-thirds {
+        grid-column: span 8;
+        aspect-ratio: 16/9;
+      }
+    }
+
+    @media (max-width: 767px) {
+      aspect-ratio: 16/9;
+    }
+
+    &:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+
+      .category-image {
+        transform: scale(1.05);
+      }
+
+      .category-info {
+        transform: translateY(0);
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.95) 0%,
+          rgba(0, 0, 0, 0.7) 50%,
+          rgba(0, 0, 0, 0.3) 100%
+        );
+      }
+
+      .category-title {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .category-meta {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  .category-link {
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  .category-image {
     position: absolute !important;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    transition: transform 0.7s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+    img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center center !important;
+      transform: scale(1.01);
+    }
   }
 
-  .image-wrapper img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.3s ease;
+  .category-info {
+    position: absolute;
+    inset: 0;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    transition: all 0.4s ease;
   }
 
-  @media (max-width: 768px) {
-    .grid {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  .category-title {
+    color: #fff;
+    font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+  }
+
+  .category-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    transform: translateY(10px);
+    transition: all 0.4s ease 0.1s;
+
+    .dot {
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
     }
   }
 `
 
-const creative = () => {
+const PortfolioPage = () => {
   const data = useStaticQuery(graphql`
     query {
       people: file(relativePath: { eq: "images/People/MariyaBest.JPG" }) {
         childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
+          fluid(maxWidth: 1200, quality: 100) {
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
@@ -89,98 +227,161 @@ const creative = () => {
         relativePath: { eq: "images/CreativeTiles/SargamDramatic.jpg" }
       ) {
         childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
+          fluid(maxWidth: 1200, quality: 100) {
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
       street: file(relativePath: { eq: "images/Abstract/blueClockVNC.jpg" }) {
         childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
+          fluid(maxWidth: 1200, quality: 100) {
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
       nature: file(relativePath: { eq: "images/Nature/SnowMountains.jpg" }) {
         childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
+          fluid(maxWidth: 1200, quality: 100) {
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
-      cars: file(relativePath: { eq: "images/Car/Barbataus.JPG" }) {
+      cars: file(relativePath: { eq: "images/Car/carFinal.jpg" }) {
         childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
+          fluid(maxWidth: 1200, quality: 100) {
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
     }
   `)
 
-  const images = [
-    { name: "People", data: data.people, link: "/people" },
-    { name: "Weddings", data: data.prewed, link: "/weddings" },
-    { name: "Abstract", data: data.street, link: "/street" },
-    { name: "Nature", data: data.nature, link: "/nature" },
-    { name: "Motor", data: data.cars, link: "/motor" },
+  const categories = [
+    {
+      name: "Portrait Photography",
+      description: "Capturing Personalities & Stories",
+      count: "24 Collections",
+      image: data.people,
+      link: "/people",
+      size: "third",
+    },
+    {
+      name: "Wedding Stories",
+      description: "Timeless Moments & Emotions",
+      count: "32 Events",
+      image: data.prewed,
+      link: "/weddings",
+      size: "third",
+    },
+    {
+      name: "Corporate Events",
+      description: "Professional & Dynamic Coverage",
+      count: "28 Events",
+      image: data.street,
+      link: "/creative",
+      size: "third",
+    },
+    {
+      name: "Commercial Projects",
+      description: "Brand & Product Excellence",
+      count: "20 Projects",
+      image: data.nature,
+      link: "/people",
+      size: "half",
+    },
+    {
+      name: "Fine Art Photography",
+      description: "Creative & Conceptual Vision",
+      count: "18 Series",
+      image: data.street,
+      link: "/street",
+      size: "half",
+    },
+    {
+      name: "Automotive Photography",
+      description: "Performance & Aesthetic",
+      count: "16 Showcases",
+      image: data.cars,
+      link: "/motor",
+      size: "half",
+    },
+    {
+      name: "Nature Photography",
+      description: "Landscapes & Wildlife",
+      count: "16 Showcases",
+      image: data.nature,
+      link: "/nature",
+      size: "half",
+    },
   ]
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 10,
-      },
-    },
+  const scrollToPortfolio = () => {
+    document.querySelector(".portfolio")?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
     <Layout>
       <SEO
-        title="Creative Photography - Toronto Photographer"
-        description="Explore my creative photography portfolio showcasing People, Abstract, Nature, and Motor themes in Toronto."
+        title="Professional Photography Portfolio - Shovon Saha | Toronto"
+        description="Discover exceptional portrait, wedding, corporate, and automotive photography by Toronto-based photographer Shovon Saha. Creating visual stories that leave lasting impressions."
       />
-      <StyledCreative>
-        <motion.div
-          className="grid"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {images.map((image, index) => (
-            <motion.div
-              className="image-wrapper"
-              key={index}
-              variants={itemVariants}
-              whileHover={{ scale: 1 }}
+      <StyledPortfolio>
+        <section className="hero">
+          <motion.div
+            className="hero-content"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
+            <h1 className="hero-title">Visual Stories That Leave an Impact</h1>
+            <p className="hero-subtitle">
+              Toronto&apos;s distinctive photography service crafting powerful
+              visual narratives for portraits, weddings, corporate events, and
+              automotive photography.
+            </p>
+            <motion.button
+              className="scroll-btn"
+              onClick={scrollToPortfolio}
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ y: 0, scale: 0.98 }}
             >
-              <Link to={image.link} aria-label={`${image.name} Photography`}>
-                <Img
-                  fluid={image.data.childImageSharp.fluid}
-                  alt={`${image.name} Photography in Toronto`}
-                />
-                <div className="overlay">{image.name}</div>
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
-      </StyledCreative>
+              Explore Portfolio →
+            </motion.button>
+          </motion.div>
+        </section>
+
+        <section className="portfolio">
+          <div className="portfolio-grid">
+            {categories.map((category, index) => (
+              <motion.div
+                key={category.name}
+                className={`category ${category.size}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <Link to={category.link} className="category-link">
+                  <Img
+                    fluid={category.image.childImageSharp.fluid}
+                    className="category-image"
+                    alt={`${category.name} by Shovon Saha`}
+                  />
+                  <div className="category-info">
+                    <h2 className="category-title">{category.name}</h2>
+                    <div className="category-meta">
+                      <span>{category.description}</span>
+                      <div className="dot" />
+                      <span>{category.count}</span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      </StyledPortfolio>
     </Layout>
   )
 }
 
-export default creative
+export default PortfolioPage

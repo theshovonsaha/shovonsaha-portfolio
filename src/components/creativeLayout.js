@@ -1,34 +1,67 @@
 import React from "react"
-import Header from "../components/creativeHeader"
-import Footer from "../components/creativeFooter"
+import Header from "./creativeHeader"
+import Footer from "./creativeFooter"
 import styled from "styled-components"
+import PropTypes from "prop-types"
 
 const StyledLayout = styled.div`
   .container {
-    margin: 0 20px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   .content {
-    flex-grow: 1;
+    flex: 1 0 auto;
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+
+    @media (min-width: 1024px) {
+      padding: 0 2rem;
+    }
+  }
+
+  /* Global styles */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Better font rendering */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 `
 
-const creativeLayout = props => {
+const CreativeLayout = ({ children }) => {
   return (
     <StyledLayout>
       <div className="container">
-        <div className="content">
-          <Header />
-          {props.children}
-        </div>
+        <Header />
+        <main className="content">{children}</main>
         <Footer />
       </div>
     </StyledLayout>
   )
 }
 
-export default creativeLayout
+CreativeLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
+export default CreativeLayout

@@ -4,13 +4,50 @@ import styled from "styled-components"
 import { motion } from "framer-motion"
 
 const StyledFooter = styled.footer`
-  padding: 1.5rem 0;
+  flex-shrink: 0;
+  padding: 3rem 1rem;
+  background-color: white;
   text-align: center;
-  font-size: 0.9rem;
 
-  p {
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .copyright {
+    color: #666;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
     margin: 0;
-    color: #555;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .social-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #000;
+      transform: translateY(-2px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+
+    .social-links {
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
   }
 `
 
@@ -19,7 +56,7 @@ const footerVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 }
 
@@ -36,9 +73,38 @@ const CreativeFooter = () => {
 
   return (
     <StyledFooter>
-      <motion.p initial="hidden" animate="visible" variants={footerVariants}>
-        Created by {data.site.siteMetadata.author}, ©2021
-      </motion.p>
+      <motion.div
+        className="footer-content"
+        initial="hidden"
+        animate="visible"
+        variants={footerVariants}
+      >
+        <p className="copyright">
+          © {new Date().getFullYear()} {data.site.siteMetadata.author}. All
+          rights reserved.
+        </p>
+        <div className="social-links">
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+          >
+            Instagram
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+          >
+            LinkedIn
+          </a>
+          <a href="mailto:contact@example.com" className="social-link">
+            Email
+          </a>
+        </div>
+      </motion.div>
     </StyledFooter>
   )
 }
