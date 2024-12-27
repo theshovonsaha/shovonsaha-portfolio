@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import Layout from "../components/creativeLayout"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import Img from "gatsby-image"
@@ -11,6 +11,7 @@ const StyledPortfolio = styled.div`
     max-width: 2200px;
     margin: 0 auto;
     padding: 4rem 2rem;
+    will-change: transform;
 
     @media (min-width: 768px) {
       padding: 6rem 4rem;
@@ -29,6 +30,7 @@ const StyledPortfolio = styled.div`
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 2rem;
+    contain: content;
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
@@ -40,7 +42,8 @@ const StyledPortfolio = styled.div`
     position: relative;
     overflow: hidden;
     background: #fff;
-    transition: all 0.4s ease;
+    transition: transform 0.4s ease;
+    contain: paint;
 
     @media (min-width: 768px) {
       &.half {
@@ -63,10 +66,7 @@ const StyledPortfolio = styled.div`
         opacity: 1;
       }
 
-      .category-title {
-        transform: translateY(0);
-      }
-
+      .category-title,
       .category-meta {
         transform: translateY(0);
         opacity: 1;
@@ -88,6 +88,8 @@ const StyledPortfolio = styled.div`
     width: 100% !important;
     height: 100% !important;
     transition: transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+    will-change: transform;
+    backface-visibility: hidden;
 
     img {
       width: 100% !important;
@@ -111,6 +113,7 @@ const StyledPortfolio = styled.div`
     );
     opacity: 0;
     transition: opacity 0.4s ease;
+    pointer-events: none;
   }
 
   .category-title {
@@ -137,8 +140,8 @@ const PortfolioPage = () => {
     query {
       people: file(relativePath: { eq: "images/People/MariyaBest.JPG" }) {
         childImageSharp {
-          fluid(maxWidth: 2400, quality: 100) {
-            ...GatsbyImageSharpFluid
+          fluid(maxWidth: 1200, quality: 85) {
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
@@ -146,28 +149,28 @@ const PortfolioPage = () => {
         relativePath: { eq: "images/CreativeTiles/SargamDramatic.jpg" }
       ) {
         childImageSharp {
-          fluid(maxWidth: 2400, quality: 100) {
+          fluid(maxWidth: 1200, quality: 85) {
             ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
       street: file(relativePath: { eq: "images/Abstract/blueClockVNC.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 2400, quality: 100) {
+          fluid(maxWidth: 1200, quality: 85) {
             ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
       nature: file(relativePath: { eq: "images/Nature/SnowMountains.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 2400, quality: 100) {
+          fluid(maxWidth: 1200, quality: 85) {
             ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
       cars: file(relativePath: { eq: "images/Car/carFinal.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 2400, quality: 100) {
+          fluid(maxWidth: 1200, quality: 85) {
             ...GatsbyImageSharpFluid_withWebp
           }
         }
@@ -175,56 +178,79 @@ const PortfolioPage = () => {
     }
   `)
 
-  const categories = [
-    {
-      name: "Portrait Photography",
-      description: "Capturing Personalities & Stories",
-      count: "24 Collections",
-      image: data.people,
-      link: "/people",
-      size: "third",
+  const categories = useMemo(
+    () => [
+      {
+        name: "Portrait Photography",
+        description: "Capturing Personalities & Stories",
+        count: "24 Collections",
+        image: data.people,
+        link: "/people",
+        size: "third",
+      },
+      {
+        name: "Wedding Stories",
+        description: "Timeless Moments & Emotions",
+        count: "32 Events",
+        image: data.prewed,
+        link: "/weddings",
+        size: "third",
+      },
+      {
+        name: "Events",
+        description: "Professional & Dynamic Coverage",
+        count: "",
+        image: data.street,
+        link: "/404",
+        size: "third",
+      },
+      {
+        name: "Fine Art Photography",
+        description: "Creative & Conceptual Vision",
+        count: "Series",
+        image: data.street,
+        link: "/street",
+        size: "third",
+      },
+      {
+        name: "Automotive Photography",
+        description: "Performance & Aesthetic",
+        count: "16 Showcases",
+        image: data.cars,
+        link: "/motor",
+        size: "third",
+      },
+      {
+        name: "Nature Photography",
+        description: "Landscapes & Wildlife",
+        count: "16 Showcases",
+        image: data.nature,
+        link: "/nature",
+        size: "third",
+      },
+    ],
+    [data]
+  )
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.6 },
     },
-    {
-      name: "Wedding Stories",
-      description: "Timeless Moments & Emotions",
-      count: "32 Events",
-      image: data.prewed,
-      link: "/weddings",
-      size: "third",
-    },
-    {
-      name: "Events",
-      description: "Professional & Dynamic Coverage",
-      count: "",
-      image: data.street,
-      link: "/404",
-      size: "third",
-    },
-    {
-      name: "Fine Art Photography",
-      description: "Creative & Conceptual Vision",
-      count: "Series",
-      image: data.street,
-      link: "/street",
-      size: "third",
-    },
-    {
-      name: "Automotive Photography",
-      description: "Performance & Aesthetic",
-      count: "16 Showcases",
-      image: data.cars,
-      link: "/motor",
-      size: "third",
-    },
-    {
-      name: "Nature Photography",
-      description: "Landscapes & Wildlife",
-      count: "16 Showcases",
-      image: data.nature,
-      link: "/nature",
-      size: "third",
-    },
-  ]
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: i => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        delay: i * 0.1,
+      },
+    }),
+  }
 
   return (
     <Layout>
@@ -237,29 +263,30 @@ const PortfolioPage = () => {
           <h1 className="portfolio-title">MY PORTFOLIO</h1>
           <motion.div
             className="portfolio-grid"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
           >
             {categories.map((category, index) => (
               <motion.div
                 key={category.name}
                 className={`category ${category.size}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                variants={itemVariants}
+                custom={index}
               >
                 <Link to={category.link} className="category-link">
                   <Img
                     fluid={category.image.childImageSharp.fluid}
                     className="category-image"
                     alt={category.name}
+                    loading={index < 3 ? "eager" : "lazy"}
+                    fadeIn={index >= 3}
                   />
                   <div className="category-info">
                     <h2 className="category-title">{category.name}</h2>
                     <div className="category-meta">
                       <span>{category.description}</span>
-                      <span>{category.count}</span>
+                      {category.count && <span>{category.count}</span>}
                     </div>
                   </div>
                 </Link>

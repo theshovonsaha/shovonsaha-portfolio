@@ -74,6 +74,7 @@ const StyledGallery = styled.section`
     cursor: pointer;
     transform: translateZ(0);
     background-color: #f8f8f8;
+    will-change: transform;
 
     &:before {
       content: "";
@@ -120,6 +121,7 @@ const StyledGallery = styled.section`
     transition: transform 0.7s cubic-bezier(0.2, 0, 0.2, 1) !important;
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.7s cubic-bezier(0.2, 0, 0.2, 1) !important;
+    will-change: transform, opacity;
 
     &.loaded {
       opacity: 1;
@@ -133,35 +135,44 @@ const StyledGallery = styled.section`
       transform: translateZ(0);
     }
   }
+
+  .placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+  }
 `
 
-// LazyImage component remains the same...
 const LazyImage = ({ node, alt, onClick, index }) => {
   const [isVisible, setIsVisible] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const imageRef = useRef(null)
+  const observerRef = useRef(null)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    observerRef.current = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true)
-          observer.unobserve(imageRef.current)
+          observerRef.current?.unobserve(entry.target)
         }
       },
       {
-        rootMargin: "50px 0px",
-        threshold: 0.1,
+        rootMargin: "100px 0px", // Increased for earlier loading
+        threshold: 0.01, // Reduced threshold for earlier detection
       }
     )
 
-    if (imageRef.current) {
-      observer.observe(imageRef.current)
+    if (imageRef.current && observerRef.current) {
+      observerRef.current.observe(imageRef.current)
     }
 
     return () => {
-      if (imageRef.current) {
-        observer.unobserve(imageRef.current)
+      if (observerRef.current) {
+        observerRef.current.disconnect()
       }
     }
   }, [])
@@ -169,6 +180,8 @@ const LazyImage = ({ node, alt, onClick, index }) => {
   const handleLoad = () => {
     setIsLoaded(true)
   }
+
+  const shouldLoadEagerly = index < 2 // Reduced from 4 to 2 for better initial load
 
   return (
     <motion.div
@@ -179,13 +192,14 @@ const LazyImage = ({ node, alt, onClick, index }) => {
       transition={{ type: "tween", duration: 0.3 }}
     >
       {!isLoaded && <div className="placeholder" />}
-      {(isVisible || index < 4) && (
+      {(isVisible || shouldLoadEagerly) && (
         <Img
           fluid={node.childImageSharp.fluid}
           alt={alt}
           className={isLoaded ? "loaded" : ""}
           onLoad={handleLoad}
-          loading={index < 4 ? "eager" : "lazy"}
+          loading={shouldLoadEagerly ? "eager" : "lazy"}
+          fadeIn={!shouldLoadEagerly}
           imgStyle={{
             objectFit: "cover",
             objectPosition: "center center",
@@ -197,6 +211,7 @@ const LazyImage = ({ node, alt, onClick, index }) => {
     </motion.div>
   )
 }
+
 LazyImage.propTypes = {
   node: PropTypes.shape({
     childImageSharp: PropTypes.shape({
@@ -216,9 +231,39 @@ LazyImage.propTypes = {
   onClick: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
 }
+
 const Gallery = ({ title, data }) => {
   const [selectedImage, setSelectedImage] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [visibleImages, setVisibleImages] = useState([])
+  const initialBatchSize = 12 // Initial number of images to show
+  const batchSize = 8 // Number of images to load each time
+
+  useEffect(() => {
+    setVisibleImages(data.edges.slice(0, initialBatchSize))
+  }, [data.edges])
+
+  const loadMoreImages = () => {
+    const currentLength = visibleImages.length
+    const nextBatch = data.edges.slice(currentLength, currentLength + batchSize)
+    setVisibleImages(prev => [...prev, ...nextBatch])
+  }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 1000
+      ) {
+        if (visibleImages.length < data.edges.length) {
+          loadMoreImages()
+        }
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [visibleImages, data.edges])
 
   const handleImageClick = index => {
     setSelectedImage(true)
@@ -262,17 +307,17 @@ const Gallery = ({ title, data }) => {
       </motion.div>
 
       <div className="grid">
-        <AnimatePresence>
-          {data.edges.map(({ node }, index) => (
+        <AnimatePresence initial={false}>
+          {visibleImages.map(({ node }, index) => (
             <motion.div
-              key={index}
+              key={`${node.childImageSharp.fluid.src}-${index}`}
               className="grid-item"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{
-                duration: 0.5,
-                delay: index * 0.1,
+                duration: 0.3,
+                delay: index < 6 ? index * 0.1 : 0,
               }}
             >
               <LazyImage
@@ -311,7 +356,6 @@ Gallery.propTypes = {
               src: PropTypes.string.isRequired,
               srcSet: PropTypes.string.isRequired,
               sizes: PropTypes.string.isRequired,
-              // Optional fields
               base64: PropTypes.string,
               tracedSVG: PropTypes.string,
               srcWebp: PropTypes.string,
