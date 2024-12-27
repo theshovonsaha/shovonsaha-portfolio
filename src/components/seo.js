@@ -2,7 +2,6 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
-import LogRocket from "logrocket"
 const SEO = ({ title, description, lang, meta }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -143,23 +142,6 @@ const SEO = ({ title, description, lang, meta }) => {
               t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
               y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window, document, "clarity", "script", "oxt7hrmeew");
-          `,
-        },
-        {
-          type: `text/javascript`,
-          defer: true,
-          dataDomain: "theshovonsaha.com",
-          src:
-            "https://plausible.io/js/script.hash.outbound-links.pageview-props.tagged-events.js",
-        },
-        {
-          type: "text/javascript",
-          src: "https://cdn.logrocket.io/LogRocket.min.js",
-        },
-        {
-          type: "text/javascript",
-          innerHTML: `
-            window.LogRocket && window.LogRocket.init('whjmsk/personal-website');
           `,
         },
       ]}

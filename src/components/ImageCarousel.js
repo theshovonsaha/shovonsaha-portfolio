@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import Img from "gatsby-image"
@@ -11,8 +11,8 @@ const Overlay = styled(motion.div)`
   left: 0;
   width: 100%;
   height: 100%;
-  background: #000;
-  z-index: 1000;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,167 +21,205 @@ const Overlay = styled(motion.div)`
 const CarouselContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+`
 
-  .image-container {
-    width: 100%;
-    height: 100%;
+const ImageContainer = styled(motion.div)`
+  position: relative;
+  width: 90vw;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none; // Prevents default touch actions
+
+  .gatsby-image-wrapper {
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+    width: auto !important;
+    height: auto !important;
+
+    img {
+      object-fit: contain !important;
+      max-width: 90vw !important;
+      max-height: 90vh !important;
+    }
+  }
+
+  .fallback-image {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
 
-    @media (max-width: 768px) {
-      padding: 3rem 1rem;
-    }
-
-    .gatsby-image-wrapper {
-      max-width: 100%;
-      max-height: 100%;
+    img {
+      max-width: 90vw;
+      max-height: 90vh;
       width: auto;
       height: auto;
+      object-fit: contain;
+    }
+  }
+`
 
-      img {
-        object-fit: contain !important;
-      }
+const Button = styled.button`
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0.8;
+  transition: all 0.2s ease-out;
+  z-index: 10000;
+
+  &:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  svg {
+    transition: transform 0.2s ease-out;
+  }
+`
+
+const CloseButton = styled(Button)`
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+
+  svg {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    top: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+
+    svg {
+      font-size: 1.25rem;
+    }
+  }
+`
+
+const NavButton = styled(Button)`
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3.5rem;
+  height: 3.5rem;
+
+  svg {
+    font-size: 1.5rem;
+  }
+
+  &.prev {
+    left: 1.5rem;
+    padding-right: 3px;
+
+    &:hover svg {
+      transform: translateX(-2px);
     }
   }
 
-  .close-button {
-    position: fixed;
-    top: 1.5rem;
+  &.next {
     right: 1.5rem;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 50%;
-    opacity: 0.8;
-    transition: all 0.2s ease-out;
-    z-index: 1010;
+    padding-left: 3px;
 
-    svg {
-      font-size: 1.5rem;
-      transition: transform 0.2s ease-out;
-    }
-
-    &:hover {
-      opacity: 1;
-      background: rgba(0, 0, 0, 0.7);
-    }
-
-    @media (max-width: 768px) {
-      top: 1rem;
-      right: 1rem;
-      width: 2.5rem;
-      height: 2.5rem;
-
-      svg {
-        font-size: 1.25rem;
-      }
+    &:hover svg {
+      transform: translateX(2px);
     }
   }
 
-  .nav-button {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    width: 3.5rem;
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 50%;
-    opacity: 0.8;
-    transition: all 0.2s ease-out;
-    z-index: 1010;
+  @media (max-width: 768px) {
+    width: 2.75rem;
+    height: 2.75rem;
 
     svg {
-      font-size: 1.5rem;
-      transition: transform 0.2s ease-out;
-    }
-
-    &:hover {
-      opacity: 1;
-      background: rgba(0, 0, 0, 0.7);
+      font-size: 1.25rem;
     }
 
     &.prev {
-      left: 1.5rem;
-      padding-right: 3px;
-
-      &:hover svg {
-        transform: translateX(-2px);
-      }
+      left: 0.75rem;
     }
 
     &.next {
-      right: 1.5rem;
-      padding-left: 3px;
-
-      &:hover svg {
-        transform: translateX(2px);
-      }
-    }
-
-    @media (max-width: 768px) {
-      width: 2.75rem;
-      height: 2.75rem;
-      background: rgba(0, 0, 0, 0.7);
-
-      svg {
-        font-size: 1.25rem;
-      }
-
-      &.prev {
-        left: 0.5rem;
-      }
-
-      &.next {
-        right: 0.5rem;
-      }
+      right: 0.75rem;
     }
   }
+`
 
-  .image-info {
-    position: fixed;
-    bottom: 1.5rem;
-    transform: translateX(-50%);
-    color: white;
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.75rem 1.5rem;
-    border-radius: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.875rem;
-    letter-spacing: 0.5px;
-    z-index: 1010;
+const ImageInfo = styled.div`
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  z-index: 10000;
 
-    @media (max-width: 768px) {
-      bottom: 1rem;
-      padding: 0.5rem 1rem;
-      font-size: 0.75rem;
-      background: rgba(0, 0, 0, 0.7);
-    }
+  @media (max-width: 768px) {
+    bottom: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
   }
 `
 
 const ImageCarousel = ({ images, currentIndex, onClose, onNext, onPrev }) => {
   const currentImage = images[currentIndex]
+  const [dragStart, setDragStart] = useState(null)
+  const SWIPE_THRESHOLD = 50 // minimum distance for swipe
+
+  const handleTouchStart = e => {
+    setDragStart(e.touches[0].clientX)
+  }
+
+  const handleTouchMove = e => {
+    if (!dragStart) return
+
+    const currentPosition = e.touches[0].clientX
+    const difference = dragStart - currentPosition
+
+    // Prevent default to stop scrolling
+    if (Math.abs(difference) > 10) {
+      e.preventDefault()
+    }
+  }
+
+  const handleTouchEnd = e => {
+    if (!dragStart) return
+
+    const currentPosition = e.changedTouches[0].clientX
+    const difference = dragStart - currentPosition
+
+    if (Math.abs(difference) > SWIPE_THRESHOLD) {
+      if (difference > 0) {
+        // Swiped left
+        onNext()
+      } else {
+        // Swiped right
+        onPrev()
+      }
+    }
+
+    setDragStart(null)
+  }
 
   return (
     <AnimatePresence>
@@ -189,64 +227,56 @@ const ImageCarousel = ({ images, currentIndex, onClose, onNext, onPrev }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.3 }}
       >
         <CarouselContainer>
-          <motion.button
-            className="close-button"
-            onClick={onClose}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1 }}
-          >
+          <CloseButton onClick={onClose}>
             <IoClose />
-          </motion.button>
+          </CloseButton>
 
-          <motion.div
-            className="image-container"
+          <ImageContainer
             key={currentIndex}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3 }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
+            {/* Primary Gatsby Image */}
             <Img
               fluid={currentImage.childImageSharp.fluid}
-              alt={currentImage.name}
-              imgStyle={{ objectFit: "contain" }}
+              alt={currentImage.name || "Gallery image"}
+              imgStyle={{
+                objectFit: "contain",
+                maxWidth: "90vw",
+                maxHeight: "90vh",
+              }}
             />
-          </motion.div>
 
-          <motion.button
-            className="nav-button prev"
-            onClick={onPrev}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1 }}
-          >
+            {/* Fallback image for reliability */}
+            <div className="fallback-image">
+              <img
+                src={currentImage.childImageSharp.fluid.src}
+                alt={currentImage.name || "Gallery image"}
+              />
+            </div>
+          </ImageContainer>
+
+          <NavButton className="prev" onClick={onPrev}>
             <IoArrowBack />
-          </motion.button>
+          </NavButton>
 
-          <motion.button
-            className="nav-button next"
-            onClick={onNext}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1 }}
-          >
+          <NavButton className="next" onClick={onNext}>
             <IoArrowForward />
-          </motion.button>
+          </NavButton>
 
-          <motion.div
-            className="image-info"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
+          <ImageInfo>
             <span>
               {currentIndex + 1} of {images.length}
             </span>
-          </motion.div>
+          </ImageInfo>
         </CarouselContainer>
       </Overlay>
     </AnimatePresence>
@@ -259,7 +289,7 @@ ImageCarousel.propTypes = {
       childImageSharp: PropTypes.shape({
         fluid: PropTypes.object.isRequired,
       }).isRequired,
-      name: PropTypes.string.isRequired,
+      name: PropTypes.string,
     })
   ).isRequired,
   currentIndex: PropTypes.number.isRequired,

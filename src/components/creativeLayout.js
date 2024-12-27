@@ -30,9 +30,17 @@ const StyledLayout = styled.div`
     padding: 0;
   }
 
-  img {
+  /* Modified to exclude gatsby-image-wrapper images */
+  img:not(.gatsby-image-wrapper img) {
     max-width: 100%;
     height: auto;
+  }
+
+  /* Allow gatsby-image-wrapper to maintain its own sizing */
+  .gatsby-image-wrapper {
+    img {
+      height: 100% !important;
+    }
   }
 
   /* Smooth scrolling */

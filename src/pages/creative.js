@@ -7,135 +7,64 @@ import SEO from "../components/seo"
 import styled from "styled-components"
 
 const StyledPortfolio = styled.div`
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-content {
-    text-align: center;
-    max-width: 900px;
-    z-index: 2;
-  }
-
-  .hero-title {
-    font-size: clamp(3rem, 6vw, 4.5rem);
-    font-weight: 600;
-    color: #1a1a1a;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-  }
-
-  .hero-subtitle {
-    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
-    color: #4a4a4a;
-    line-height: 1.6;
-    margin-bottom: 3rem;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .scroll-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
-    background: #1a1a1a;
-    color: white;
-    border-radius: 3rem;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-
-    &:hover {
-      transform: translateY(-2px);
-      background: transparent;
-      color: #1a1a1a;
-      border-color: #1a1a1a;
-    }
-  }
-
-  .portfolio {
-    padding: 8rem 2rem;
-    background: #fafafa;
+  .portfolio-container {
+    max-width: 2200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
 
     @media (min-width: 768px) {
-      padding: 10rem 4rem;
+      padding: 6rem 4rem;
     }
+  }
+
+  .portfolio-title {
+    text-align: center;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    margin-bottom: 4rem;
+    letter-spacing: 0.1em;
   }
 
   .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 2rem;
-    max-width: 2200px;
-    margin: 0 auto;
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
     }
   }
 
   .category {
+    grid-column: span 12;
     position: relative;
-    border-radius: 1.5rem;
     overflow: hidden;
     background: #fff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    grid-column: span 12;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.4s ease;
 
     @media (min-width: 768px) {
       &.half {
         grid-column: span 6;
-        aspect-ratio: 3/2;
       }
       &.third {
         grid-column: span 4;
-        aspect-ratio: 2/3;
       }
       &.two-thirds {
         grid-column: span 8;
-        aspect-ratio: 16/9;
       }
     }
 
-    @media (max-width: 767px) {
-      aspect-ratio: 16/9;
-    }
-
     &:hover {
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-
       .category-image {
         transform: scale(1.05);
       }
 
       .category-info {
-        transform: translateY(0);
-        background: linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.95) 0%,
-          rgba(0, 0, 0, 0.7) 50%,
-          rgba(0, 0, 0, 0.3) 100%
-        );
+        opacity: 1;
       }
 
       .category-title {
         transform: translateY(0);
-        opacity: 1;
       }
 
       .category-meta {
@@ -147,9 +76,10 @@ const StyledPortfolio = styled.div`
 
   .category-link {
     display: block;
-    height: 100%;
     width: 100%;
+    height: 100%;
     position: relative;
+    aspect-ratio: 3/4;
   }
 
   .category-image {
@@ -157,59 +87,48 @@ const StyledPortfolio = styled.div`
     inset: 0;
     width: 100% !important;
     height: 100% !important;
-    transition: transform 0.7s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition: transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
 
     img {
       width: 100% !important;
       height: 100% !important;
       object-fit: cover !important;
-      object-position: center center !important;
-      transform: scale(1.01);
     }
   }
 
   .category-info {
     position: absolute;
     inset: 0;
-    padding: 2.5rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     background: linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.85) 0%,
-      rgba(0, 0, 0, 0.5) 50%,
-      rgba(0, 0, 0, 0.2) 100%
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.4) 50%,
+      rgba(0, 0, 0, 0) 100%
     );
-    transition: all 0.4s ease;
+    opacity: 0;
+    transition: opacity 0.4s ease;
   }
 
   .category-title {
     color: #fff;
-    font-size: clamp(1.75rem, 2.5vw, 2.25rem);
-    font-weight: 600;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-    transform: translateY(10px);
-    transition: all 0.4s ease;
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    transform: translateY(20px);
+    transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
   .category-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 1rem;
-    transform: translateY(10px);
-    transition: all 0.4s ease 0.1s;
-
-    .dot {
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-    }
+    font-weight: 300;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0.1s;
   }
 `
 
@@ -218,8 +137,8 @@ const PortfolioPage = () => {
     query {
       people: file(relativePath: { eq: "images/People/MariyaBest.JPG" }) {
         childImageSharp {
-          fluid(maxWidth: 1200, quality: 100) {
-            ...GatsbyImageSharpFluid_withWebp
+          fluid(maxWidth: 2400, quality: 100) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -227,28 +146,28 @@ const PortfolioPage = () => {
         relativePath: { eq: "images/CreativeTiles/SargamDramatic.jpg" }
       ) {
         childImageSharp {
-          fluid(maxWidth: 1200, quality: 100) {
+          fluid(maxWidth: 2400, quality: 100) {
             ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
       street: file(relativePath: { eq: "images/Abstract/blueClockVNC.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 1200, quality: 100) {
+          fluid(maxWidth: 2400, quality: 100) {
             ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
       nature: file(relativePath: { eq: "images/Nature/SnowMountains.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 1200, quality: 100) {
+          fluid(maxWidth: 2400, quality: 100) {
             ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
       cars: file(relativePath: { eq: "images/Car/carFinal.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 1200, quality: 100) {
+          fluid(maxWidth: 2400, quality: 100) {
             ...GatsbyImageSharpFluid_withWebp
           }
         }
@@ -274,28 +193,20 @@ const PortfolioPage = () => {
       size: "third",
     },
     {
-      name: "Corporate Events",
+      name: "Events",
       description: "Professional & Dynamic Coverage",
-      count: "28 Events",
+      count: "",
       image: data.street,
-      link: "/creative",
+      link: "/404",
       size: "third",
-    },
-    {
-      name: "Commercial Projects",
-      description: "Brand & Product Excellence",
-      count: "20 Projects",
-      image: data.nature,
-      link: "/people",
-      size: "half",
     },
     {
       name: "Fine Art Photography",
       description: "Creative & Conceptual Vision",
-      count: "18 Series",
+      count: "Series",
       image: data.street,
       link: "/street",
-      size: "half",
+      size: "third",
     },
     {
       name: "Automotive Photography",
@@ -303,7 +214,7 @@ const PortfolioPage = () => {
       count: "16 Showcases",
       image: data.cars,
       link: "/motor",
-      size: "half",
+      size: "third",
     },
     {
       name: "Nature Photography",
@@ -311,13 +222,9 @@ const PortfolioPage = () => {
       count: "16 Showcases",
       image: data.nature,
       link: "/nature",
-      size: "half",
+      size: "third",
     },
   ]
-
-  const scrollToPortfolio = () => {
-    document.querySelector(".portfolio")?.scrollIntoView({ behavior: "smooth" })
-  }
 
   return (
     <Layout>
@@ -326,32 +233,14 @@ const PortfolioPage = () => {
         description="Discover exceptional portrait, wedding, corporate, and automotive photography by Toronto-based photographer Shovon Saha. Creating visual stories that leave lasting impressions."
       />
       <StyledPortfolio>
-        <section className="hero">
+        <div className="portfolio-container">
+          <h1 className="portfolio-title">MY PORTFOLIO</h1>
           <motion.div
-            className="hero-content"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            className="portfolio-grid"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
           >
-            <h1 className="hero-title">Visual Stories That Leave an Impact</h1>
-            <p className="hero-subtitle">
-              Toronto&apos;s distinctive photography service crafting powerful
-              visual narratives for portraits, weddings, corporate events, and
-              automotive photography.
-            </p>
-            <motion.button
-              className="scroll-btn"
-              onClick={scrollToPortfolio}
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ y: 0, scale: 0.98 }}
-            >
-              Explore Portfolio →
-            </motion.button>
-          </motion.div>
-        </section>
-
-        <section className="portfolio">
-          <div className="portfolio-grid">
             {categories.map((category, index) => (
               <motion.div
                 key={category.name}
@@ -364,21 +253,20 @@ const PortfolioPage = () => {
                   <Img
                     fluid={category.image.childImageSharp.fluid}
                     className="category-image"
-                    alt={`${category.name} by Shovon Saha`}
+                    alt={category.name}
                   />
                   <div className="category-info">
                     <h2 className="category-title">{category.name}</h2>
                     <div className="category-meta">
                       <span>{category.description}</span>
-                      <div className="dot" />
                       <span>{category.count}</span>
                     </div>
                   </div>
                 </Link>
               </motion.div>
             ))}
-          </div>
-        </section>
+          </motion.div>
+        </div>
       </StyledPortfolio>
     </Layout>
   )

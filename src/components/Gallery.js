@@ -1,93 +1,69 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import PropTypes from "prop-types"
 import Img from "gatsby-image"
 import styled from "styled-components"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import ImageCarousel from "./ImageCarousel"
 
 const StyledGallery = styled.section`
-  padding: 2rem;
-  max-width: 2000px;
   margin: 0 auto;
-  overflow: hidden;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  max-width: 1920px;
+  width: 100%;
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1rem;
-    margin: -0.5rem; // Negative margin to counter padding
+  .title-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+  }
 
-    @media (max-width: 1200px) {
-      grid-template-columns: repeat(8, 1fr);
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin: 0;
+    display: inline-block;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: currentColor;
+      opacity: 0.8;
     }
 
     @media (max-width: 768px) {
-      grid-template-columns: repeat(4, 1fr);
+      font-size: 2rem;
     }
+  }
 
-    @media (max-width: 480px) {
-      grid-template-columns: repeat(2, 1fr);
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 2px;
+    background-color: #f5f5f5;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 1px;
     }
   }
 
   .grid-item {
     position: relative;
-    padding: 0.5rem;
-    grid-column: span 4;
+    background-color: white;
     aspect-ratio: 3/4;
-
-    &.landscape {
-      grid-column: span 6;
-      aspect-ratio: 16/9;
-    }
-
-    &.portrait {
-      grid-column: span 3;
-      aspect-ratio: 2/3;
-    }
-
-    &.featured {
-      grid-column: span 6;
-      aspect-ratio: 1;
-    }
-
-    @media (max-width: 1200px) {
-      grid-column: span 4;
-
-      &.landscape {
-        grid-column: span 8;
-      }
-
-      &.portrait {
-        grid-column: span 4;
-      }
-
-      &.featured {
-        grid-column: span 8;
-      }
-    }
+    overflow: hidden;
 
     @media (max-width: 768px) {
-      grid-column: span 2;
-
-      &.landscape,
-      &.featured {
-        grid-column: span 4;
-      }
-
-      &.portrait {
-        grid-column: span 2;
-      }
-    }
-
-    @media (max-width: 480px) {
-      grid-column: span 2;
-
-      &.landscape,
-      &.portrait,
-      &.featured {
-        grid-column: span 2;
-      }
+      aspect-ratio: 4/5;
     }
   }
 
@@ -95,68 +71,154 @@ const StyledGallery = styled.section`
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    transform: translateZ(0);
+    background-color: #f8f8f8;
+
+    &:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      z-index: 1;
+      transition: background 0.3s ease;
+    }
+
+    &:after {
+      content: "View";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -40%);
+      color: white;
+      font-size: 1.25rem;
+      font-weight: 500;
+      opacity: 0;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
 
     &:hover {
-      transform: translateY(-4px);
-    }
+      &:before {
+        background: rgba(0, 0, 0, 0.3);
+      }
 
-    .gatsby-image-wrapper {
-      position: absolute !important;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-  }
+      &:after {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
 
-  h1 {
-    text-align: center;
-    margin: 0 0 3rem;
-    font-size: 2.5rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: #1a1a1a;
-
-    @media (max-width: 768px) {
-      font-size: 2rem;
-      margin-bottom: 2rem;
+      .gatsby-image-wrapper {
+        transform: scale(1.03);
+      }
     }
   }
 
-  .image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.3) 0%,
-      rgba(0, 0, 0, 0) 50%
-    );
+  .gatsby-image-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    transition: transform 0.7s cubic-bezier(0.2, 0, 0.2, 1) !important;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.7s cubic-bezier(0.2, 0, 0.2, 1) !important;
 
-    &:hover {
+    &.loaded {
       opacity: 1;
+    }
+
+    img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center center !important;
+      transform: translateZ(0);
     }
   }
 `
 
+// LazyImage component remains the same...
+const LazyImage = ({ node, alt, onClick, index }) => {
+  const [isVisible, setIsVisible] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const imageRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.unobserve(imageRef.current)
+        }
+      },
+      {
+        rootMargin: "50px 0px",
+        threshold: 0.1,
+      }
+    )
+
+    if (imageRef.current) {
+      observer.observe(imageRef.current)
+    }
+
+    return () => {
+      if (imageRef.current) {
+        observer.unobserve(imageRef.current)
+      }
+    }
+  }, [])
+
+  const handleLoad = () => {
+    setIsLoaded(true)
+  }
+
+  return (
+    <motion.div
+      ref={imageRef}
+      className="image-container"
+      onClick={onClick}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: "tween", duration: 0.3 }}
+    >
+      {!isLoaded && <div className="placeholder" />}
+      {(isVisible || index < 4) && (
+        <Img
+          fluid={node.childImageSharp.fluid}
+          alt={alt}
+          className={isLoaded ? "loaded" : ""}
+          onLoad={handleLoad}
+          loading={index < 4 ? "eager" : "lazy"}
+          imgStyle={{
+            objectFit: "cover",
+            objectPosition: "center center",
+            width: "100%",
+            height: "100%",
+          }}
+        />
+      )}
+    </motion.div>
+  )
+}
+LazyImage.propTypes = {
+  node: PropTypes.shape({
+    childImageSharp: PropTypes.shape({
+      fluid: PropTypes.shape({
+        aspectRatio: PropTypes.number.isRequired,
+        src: PropTypes.string.isRequired,
+        srcSet: PropTypes.string.isRequired,
+        sizes: PropTypes.string.isRequired,
+        base64: PropTypes.string,
+        tracedSVG: PropTypes.string,
+        srcWebp: PropTypes.string,
+        srcSetWebp: PropTypes.string,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
+  alt: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+}
 const Gallery = ({ title, data }) => {
   const [selectedImage, setSelectedImage] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0)
-
-  const getImageStyle = (index, node) => {
-    // Calculate aspect ratio from the image dimensions
-    const aspectRatio = node.childImageSharp.fluid.aspectRatio
-
-    if (index === 0) return "featured"
-    if (aspectRatio > 1.3) return "landscape"
-    if (aspectRatio < 0.8) return "portrait"
-    return ""
-  }
 
   const handleImageClick = index => {
     setSelectedImage(true)
@@ -175,58 +237,55 @@ const Gallery = ({ title, data }) => {
     setCurrentIndex(prev => (prev === 0 ? data.edges.length - 1 : prev - 1))
   }
 
-  const handleKeyPress = e => {
-    if (selectedImage) {
-      if (e.key === "Escape") handleClose()
-      if (e.key === "ArrowRight") handleNext()
-      if (e.key === "ArrowLeft") handlePrev()
-    }
-  }
-
   useEffect(() => {
+    const handleKeyPress = e => {
+      if (selectedImage) {
+        if (e.key === "Escape") handleClose()
+        if (e.key === "ArrowRight") handleNext()
+        if (e.key === "ArrowLeft") handlePrev()
+      }
+    }
+
     document.addEventListener("keydown", handleKeyPress)
     return () => document.removeEventListener("keydown", handleKeyPress)
   }, [selectedImage])
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] },
-    },
-  }
-
   return (
     <StyledGallery>
-      <h1>{title}</h1>
+      <motion.div
+        className="title-container"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <h1 className="title">{title}</h1>
+      </motion.div>
+
       <div className="grid">
-        {data.edges.map(({ node }, index) => (
-          <motion.div
-            key={index}
-            className={`grid-item ${getImageStyle(index, node)}`}
-            variants={itemVariants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: index * 0.1 }}
-          >
+        <AnimatePresence>
+          {data.edges.map(({ node }, index) => (
             <motion.div
-              className="image-container"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => handleImageClick(index)}
+              key={index}
+              className="grid-item"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,
+              }}
             >
-              <Img
-                fluid={node.childImageSharp.fluid}
-                alt={`${title} Photography - ${node.name}`}
-                loading={index < 4 ? "eager" : "lazy"}
-                imgStyle={{ objectFit: "cover" }}
+              <LazyImage
+                node={node}
+                alt={title}
+                index={index}
+                onClick={() => handleImageClick(index)}
               />
-              <div className="image-overlay" />
             </motion.div>
-          </motion.div>
-        ))}
+          ))}
+        </AnimatePresence>
       </div>
+
       {selectedImage && (
         <ImageCarousel
           images={data.edges.map(({ node }) => node)}
@@ -247,9 +306,18 @@ Gallery.propTypes = {
       PropTypes.shape({
         node: PropTypes.shape({
           childImageSharp: PropTypes.shape({
-            fluid: PropTypes.object.isRequired,
+            fluid: PropTypes.shape({
+              aspectRatio: PropTypes.number.isRequired,
+              src: PropTypes.string.isRequired,
+              srcSet: PropTypes.string.isRequired,
+              sizes: PropTypes.string.isRequired,
+              // Optional fields
+              base64: PropTypes.string,
+              tracedSVG: PropTypes.string,
+              srcWebp: PropTypes.string,
+              srcSetWebp: PropTypes.string,
+            }).isRequired,
           }).isRequired,
-          name: PropTypes.string.isRequired,
         }).isRequired,
       }).isRequired
     ).isRequired,
