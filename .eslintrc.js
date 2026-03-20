@@ -3,6 +3,9 @@ module.exports = {
   parserOptions: {
     sourceType: "module",
     requireConfigFile: false,
+    babelOptions: {
+      presets: ["@babel/preset-react"],
+    },
     ecmaFeatures: {
       jsx: true,
     },
