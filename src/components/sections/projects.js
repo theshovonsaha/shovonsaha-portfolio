@@ -93,12 +93,23 @@ const Overlay = styled(motion.div)`
   justify-content: center;
   padding: 2rem;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    padding: 1rem 0.75rem;
+  }
 `
 
 const OverlayContent = styled(motion.div)`
   width: 100%;
   max-width: 800px;
   position: relative;
+  margin: 2.5rem 0 1rem;
+
+  @media (max-width: 768px) {
+    margin: 0.5rem 0;
+  }
 `
 
 const CloseButton = styled.button`
@@ -119,6 +130,11 @@ const CloseButton = styled.button`
   &:hover {
     transform: rotate(90deg);
   }
+
+  @media (max-width: 768px) {
+    top: -2.25rem;
+    right: 0.25rem;
+  }
 `
 
 const DetailedCardWrapper = styled.div`
@@ -127,6 +143,11 @@ const DetailedCardWrapper = styled.div`
   padding: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+  }
 `
 
 const TopRow = styled.div`
@@ -134,17 +155,33 @@ const TopRow = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1.5rem;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
 `
 
 const Title = styled.h3`
   font-size: 1.8rem;
   color: ${({ theme }) => theme.colors.primary};
   margin: 0;
+  word-break: break-word;
+
+  @media (max-width: 768px) {
+    font-size: 1.35rem;
+  }
 `
 
 const ActionButtons = styled.div`
   display: flex;
   gap: 1rem;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    gap: 0.75rem;
+  }
 `
 
 const IconButton = styled.a`
@@ -169,6 +206,11 @@ const Description = styled.p`
   line-height: 1.6;
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+  }
 `
 
 const Technologies = styled.ul`
@@ -185,6 +227,16 @@ const Technologies = styled.ul`
     padding: 0.5rem 1rem;
     border-radius: 100px;
     font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+
+    li {
+      font-size: 0.82rem;
+      padding: 0.4rem 0.8rem;
+    }
   }
 `
 
@@ -205,6 +257,13 @@ const Achievements = styled.ul`
       position: absolute;
       left: 0;
       color: ${({ theme }) => theme.colors.primary};
+    }
+  }
+
+  @media (max-width: 768px) {
+    li {
+      margin-bottom: 0.75rem;
+      line-height: 1.35;
     }
   }
 `
