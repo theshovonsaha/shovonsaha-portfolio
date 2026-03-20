@@ -10,6 +10,3 @@
   from = "/quickmd"
   to = "https://ss-quick-md-editor.vercel.app"
   status = 301
-  
-[[plugins]]
-  package = "netlify-plugin-gatsby-cache"
