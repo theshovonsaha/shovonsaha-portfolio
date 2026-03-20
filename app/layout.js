@@ -1,3 +1,4 @@
+import React from "react"
 import Link from "next/link"
 import "./globals.css"
 
@@ -21,13 +22,27 @@ export default function RootLayout({ children }) {
                 <Link href="/creative">Creative</Link>
                 <Link href="/myself">Me</Link>
                 <Link href="/creativecontact">Contact</Link>
-                <a href="https://github.com/theshovonsaha" target="_blank" rel="noreferrer">GitHub</a>
-                <a href="https://www.linkedin.com/in/theshovonsaha/" target="_blank" rel="noreferrer">LinkedIn</a>
+                <a
+                  href="https://github.com/theshovonsaha"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  GitHub
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/theshovonsaha/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn
+                </a>
               </div>
             </nav>
           </header>
           <main>{children}</main>
-          <footer className="site-footer">© {new Date().getFullYear()} Shovon Saha</footer>
+          <footer className="site-footer">
+            © {new Date().getFullYear()} Shovon Saha
+          </footer>
         </div>
       </body>
     </html>

@@ -1,6 +1,10 @@
+import React from "react"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { creativeCategories, getCategoryBySlug } from "../../../lib/creative-data"
+import {
+  creativeCategories,
+  getCategoryBySlug,
+} from "../../../lib/creative-data"
 
 export function generateStaticParams() {
   return creativeCategories.map(category => ({ category: category.slug }))
@@ -28,7 +32,9 @@ export default function CreativeCategoryPage({ params }) {
 
   return (
     <div className="page" style={{ padding: "2.5rem 0 4rem" }}>
-      <h1 style={{ fontWeight: 300, letterSpacing: "0.08em" }}>{category.name}</h1>
+      <h1 style={{ fontWeight: 300, letterSpacing: "0.08em" }}>
+        {category.name}
+      </h1>
       <p style={{ color: "#6b6b6b" }}>{category.description}</p>
       <section className="gallery-grid" style={{ marginTop: "1.5rem" }}>
         {category.images.map((image, index) => (

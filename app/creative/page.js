@@ -1,3 +1,4 @@
+import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { creativeCategories } from "../../lib/creative-data"
@@ -12,7 +13,9 @@ export default function CreativePage() {
   return (
     <div className="page" style={{ padding: "2.5rem 0 4rem" }}>
       <section>
-        <h1 style={{ fontWeight: 300, letterSpacing: "0.08em" }}>MY PORTFOLIO</h1>
+        <h1 style={{ fontWeight: 300, letterSpacing: "0.08em" }}>
+          MY PORTFOLIO
+        </h1>
         <p style={{ color: "#6b6b6b", maxWidth: 760 }}>
           A sleek, minimal presentation for portrait, wedding, nature, street,
           and automotive collections.

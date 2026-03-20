@@ -1,7 +1,4 @@
 module.exports = {
-  presets: ["@babel/env", "@babel/preset-react"],
-  plugins: [
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-transform-runtime",
-  ],
+  presets: ["next/babel"],
+  plugins: ["babel-plugin-styled-components"],
 }
