@@ -4,7 +4,7 @@
 
 [build.environment]
   TERM = "xterm"
-  NODE_VERSION = "14"
+  NODE_VERSION = "18"
   
 [[redirects]]
   from = "/quickmd"
