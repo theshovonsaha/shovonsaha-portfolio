@@ -1,0 +1,148 @@
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #6b6b6b;
+  --line: #e9e9e9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Roboto, Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.site-header nav,
+.site-footer,
+.page {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+}
+
+.site-header nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+
+.brand {
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  color: var(--muted);
+}
+
+main {
+  flex: 1;
+}
+
+.hero {
+  padding: 5rem 0 3rem;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin: 0;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+
+.hero p {
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 720px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.tile-image {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.tile-image img {
+  object-fit: cover;
+}
+
+.tile-content {
+  padding: 1rem;
+}
+
+.tile-content h2,
+.tile-content h3 {
+  margin: 0;
+  font-weight: 500;
+}
+
+.tile-content p {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2px;
+  background: #f0f0f0;
+}
+
+.gallery-item {
+  background: #fff;
+}
+
+.gallery-frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+}
+
+.gallery-frame img {
+  object-fit: cover;
+}
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 1.25rem 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
