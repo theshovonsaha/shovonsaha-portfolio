@@ -1,16 +1,12 @@
 [build]
   command = "npm run build"
-  publish = "public"
+  publish = ".next"
 
 [build.environment]
-  CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
   TERM = "xterm"
-  NODE_VERSION = "14"
+  NODE_VERSION = "18"
   
 [[redirects]]
   from = "/quickmd"
   to = "https://ss-quick-md-editor.vercel.app"
   status = 301
-  
-[[plugins]]
-  package = "netlify-plugin-gatsby-cache"

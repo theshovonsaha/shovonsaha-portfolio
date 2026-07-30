@@ -3,6 +3,9 @@ module.exports = {
   parserOptions: {
     sourceType: "module",
     requireConfigFile: false,
+    babelOptions: {
+      presets: ["@babel/preset-react"],
+    },
     ecmaFeatures: {
       jsx: true,
     },
@@ -19,6 +22,15 @@ module.exports = {
     es6: true,
   },
   plugins: ["@babel", "react", "react-hooks", "prettier"],
+  overrides: [
+    {
+      files: ["app/**/*.js"],
+      rules: {
+        "react/react-in-jsx-scope": "off",
+        "react/prop-types": "off",
+      },
+    },
+  ],
   rules: {
     "prettier/prettier": "error",
     "react/no-find-dom-node": "off",

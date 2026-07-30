@@ -6,7 +6,7 @@ module.exports = {
   siteDescription: "",
   siteUrl: "https://theshovonsaha.com/",
   siteLanguage: "en_US",
-  siteIcon: "content/favicon.png", // Relative to gatsby-config file
+  siteIcon: "content/favicon.png", // Relative to the project root
   seoTitleSuffix: "Computer Scientist", // SEO title syntax will be e.g. "Imprint - {seoTitleSuffix}"
 
   // -- THEME SETTINGS -----

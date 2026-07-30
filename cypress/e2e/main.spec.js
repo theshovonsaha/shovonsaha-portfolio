@@ -1,29 +1,24 @@
-describe("IndexPage", () => {
+describe("Next.js migrated pages", () => {
   beforeEach(() => {
     cy.visit("/")
   })
 
-  it("renders", () => {
-    cy.findByTestId("animated-heading").should("exist")
+  it("renders home and routes to creative page", () => {
+    cy.contains("SOFTWARE • CREATIVE • STORY").should("exist")
+    cy.contains("Open Creative Portfolio").click()
+    cy.url().should("include", "/creative")
   })
 
-  it("renders all sections", () => {
-    cy.get("#hero").should("exist")
-    cy.get("#articles").should("exist")
-    cy.get("#about").should("exist")
-    cy.get("#skills").should("exist")
-    cy.get("#contact").should("exist")
+  it("renders creative categories", () => {
+    cy.visit("/creative")
+    cy.contains("Portrait Photography").should("exist")
+    cy.contains("Wedding Stories").should("exist")
   })
 
-  it("is animated", () => {
-    cy.wait(2000) // wait for animation
-    cy.findByTestId("animated-heading").should("have.css", "opacity", "1")
-  })
-
-  it("references legal pages", () => {
-    cy.findByTestId("footer-links")
-      .findByText(/privacy/i)
-      .should("have.attr", "href")
-      .and("include", "privacy")
+  it("serves category gallery pages and privacy page", () => {
+    cy.visit("/creative/people")
+    cy.contains("Portrait Photography").should("exist")
+    cy.visit("/privacy")
+    cy.contains("Privacy Policy").should("exist")
   })
 })
